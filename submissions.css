@@ -1,0 +1,51 @@
+/* CSS declarations go here */
+body
+{
+	color:#fff;
+	background-color:#501d1b;
+	background-image: linear-gradient(to bottom, #501d1b, #000 100%);
+	background-attachment:fixed;
+}
+.wrapper
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 900px;
+	border-radius: 5px;
+	color:#333;
+	background-color:#fcfeec;
+	padding:4px;
+}
+.login
+{
+}
+.user
+{
+	float: left;
+	width: 400px;
+	background-color:#8e8f77;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+}
+.userdata
+{
+	padding:10px;
+}
+.leaderboard
+{
+	margin-left: auto;
+	margin-right: auto;
+	float: right;
+	width: 500px;
+	background-color: #daa42f;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	text-align:center;
+}
+.notice
+{
+	width:900px;
+	text-align:center;
+	font-size:75%;
+}
+.clear{clear:both;}

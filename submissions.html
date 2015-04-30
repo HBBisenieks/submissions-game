@@ -1,0 +1,95 @@
+<head>
+  <title>submissions</title>
+</head>
+
+<body>
+	<div class="login">
+		{{> loginButtons}}
+	</div>
+	<div class="wrapper">
+		<div class="user">
+			<div class="userdata">
+				{{#if currentUser}}
+				<h1>Stats for {{currentUser.username}}</h1>
+				<p>Stuff stuff stuff</p>
+				<p>More stuff</p>
+
+				{{> subPlus}}
+				{{> rejPlus}}
+				{{> accPlus}}
+				{{> wdPlus}}
+				<br />
+				{{> subMinus}}
+				{{> rejMinus}}
+				{{> accMinus}}
+				{{> wdMinus}}
+				{{> userStats}}
+				{{else}}
+				<h1>You must be logged in to use this feature</h1>
+				{{/if}}
+			</div>
+		</div>
+		<div class="leaderboard">
+			<h1>Leader Board</h1>
+			<br />
+			<ul>
+				{{#each submissions}}
+					{{> username}}
+				{{/each}}
+			</ul>
+		</div>
+
+		<div class="clear"></div>
+		<div class="notice">
+			<p>Some information about the app goes here</p>
+		</div>
+	</div>
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="subPlus">
+	<button>S +</button>
+</template>
+
+<template name="subMinus">
+	<button>S -</button>
+</template>
+
+<template name="rejPlus">
+	<button>R +</button>
+</template>
+
+<template name="rejMinus">
+	<button>R -</button>
+</template>
+
+<template name="accPlus">
+	<button>A +</button>
+</template>
+
+<template name="accMinus">
+	<button>A -</button>
+</template>
+
+<template name="wdPlus">
+	<button>W +</button>
+</template>
+
+<template name="wdMinus">
+	<button>W -</button>
+</template>
+
+<template name="userStats">
+	<p>Stats</p>
+	<ul>
+		<li>Submissions: {{userSubs}}</li>
+		<li>Rejections: {{userRejections}}</li>
+		<li>Acceptances: {{userAccept}}</li>
+		<li>Withdrawals: {{userWithdraw}}</li>
+	</ul>
+	<p>Score: {{userScore}}</p>
+</template>
