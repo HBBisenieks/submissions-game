@@ -1,5 +1,5 @@
 <head>
-  <title>submissions</title>
+  <title>The Submissions Game</title>
 </head>
 
 <body>
@@ -10,19 +10,11 @@
 		<div class="user">
 			<div class="userdata">
 				{{#if currentUser}}
-				<h1>Stats for {{currentUser.username}}</h1>
+				<h1>{{currentUser.username}} ({{userScore}})</h1>
 				<p>Stuff stuff stuff</p>
 				<p>More stuff</p>
 
-				{{> subPlus}}
-				{{> rejPlus}}
-				{{> accPlus}}
-				{{> wdPlus}}
-				<br />
-				{{> subMinus}}
-				{{> rejMinus}}
-				{{> accMinus}}
-				{{> wdMinus}}
+				{{> statUpdate}}
 				{{> userStats}}
 				{{else}}
 				<h1>You must be logged in to use this feature</h1>
@@ -30,13 +22,8 @@
 			</div>
 		</div>
 		<div class="leaderboard">
-			<h1>Leader Board</h1>
-			<br />
-			<ul>
-				{{#each submissions}}
-					{{> username}}
-				{{/each}}
-			</ul>
+				{{> leaderboard}}
+				{{submissions}}
 		</div>
 
 		<div class="clear"></div>
@@ -46,41 +33,16 @@
 	</div>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
-
-<template name="subPlus">
-	<button>S +</button>
-</template>
-
-<template name="subMinus">
-	<button>S -</button>
-</template>
-
-<template name="rejPlus">
-	<button>R +</button>
-</template>
-
-<template name="rejMinus">
-	<button>R -</button>
-</template>
-
-<template name="accPlus">
-	<button>A +</button>
-</template>
-
-<template name="accMinus">
-	<button>A -</button>
-</template>
-
-<template name="wdPlus">
-	<button>W +</button>
-</template>
-
-<template name="wdMinus">
-	<button>W -</button>
+<template name="statUpdate">
+	<button class="subPlus">S +</button>
+	<button class="rejPlus">R +</button>
+	<button class="accPlus">A +</button>
+	<button class="wdPlus">W +</button>
+	<br />
+	<button class="subMinus">S -</button>
+	<button class="rejMinus">R -</button>
+	<button class="accMinus">A -</button>
+	<button class="wdMinus">W -</button>
 </template>
 
 <template name="userStats">
@@ -92,4 +54,13 @@
 		<li>Withdrawals: {{userWithdraw}}</li>
 	</ul>
 	<p>Score: {{userScore}}</p>
+</template>
+
+<template name="leaderboard">
+	<h1>Leaderboard</h1>
+	<ol>
+		{{#each writer}}
+			<li>{{name}}</li>
+		{{/each}}
+	</ol>
 </template>
