@@ -1,21 +1,37 @@
-// Writers = new Mongo.Collection('writers');
-// Submissions = new Mongo.Collection("submissions");
+// Client code
 
 if (Meteor.isClient) {
 
   Template.body.helpers({
 	  userScore: function () {
+		  // return user's score
 		  return Meteor.user().score;
 	  }
   });
 
   Template.leaderboard.helpers({
 	  writer: function () {
+		  // return all user's attributes for leaderboard
 		  return Meteor.users.find({}, {fields: {username: 1, score: 1}, sort: {score: -1}});
 	  }
   });
 
+  Template.trophy.helpers({
+	  leading: function () {
+		  // Return true if current user has highest score
+		  // tropy template displays trophy for user with highest score
+		  // 
+		  // Will display trophy to multiple users who share high score
+		  // even though leaderboard will still rank one above others
+		  if (Meteor.userId() === Meteor.users.findOne({}, {fields: {_id: 1}, sort: {score: -1}})._id) {
+			  return true;
+		  }
+		  return false;
+	  }
+  });
+
   Template.userStats.helpers({
+	  // helpers to access user stats
 	  userSubs: function () {
 		  var id = Meteor.user().username;
 		  return Meteor.user().subs;

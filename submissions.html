@@ -11,6 +11,7 @@
 			<div class="userdata">
 				{{#if currentUser}}
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
+				{{> trophy}}
 				<p>Stuff stuff stuff</p>
 				<p>More stuff</p>
 
@@ -42,6 +43,12 @@
 	<button class="rejMinus">R -</button>
 	<button class="accMinus">A -</button>
 	<button class="wdMinus">W -</button>
+</template>
+
+<template name="trophy">
+	{{#if leading}}
+		<img src='trophy.png' alt='Current Leader!' height='40%' width='40%' />
+	{{/if}}
 </template>
 
 <template name="userStats">
