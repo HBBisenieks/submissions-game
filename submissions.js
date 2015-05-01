@@ -1,4 +1,4 @@
-Writers = new Mongo.Collection('writers');
+// Writers = new Mongo.Collection('writers');
 // Submissions = new Mongo.Collection("submissions");
 
 if (Meteor.isClient) {
@@ -11,7 +11,7 @@ if (Meteor.isClient) {
 
   Template.leaderboard.helpers({
 	  writer: function () {
-		  return Meteor.users.find({}, {sort: {score: -1}});
+		  return Meteor.users.find({}, {fields: {username: 1, score: 1}, sort: {score: -1}});
 	  }
   });
 
@@ -111,7 +111,7 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
   	Meteor.publish('userScores', function () {
-  		return Meteor.users.find(profile);
+  		return Meteor.users.find({}, {profile: {subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}});
   	});
   });
 
