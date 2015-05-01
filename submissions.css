@@ -1,6 +1,7 @@
 /* CSS declarations go here */
 body
 {
+	font-family:Verdana;
 	color:#fff;
 	background-color:#501d1b;
 	background-image: linear-gradient(to bottom, #501d1b, #000 100%);
