@@ -10,7 +10,7 @@
   Template.leaderboard.helpers({
 	  writer: function () {
 		  // return all user's attributes for leaderboard
-		  return Meteor.users.find({}, {fields: {username: 1, score: 1}, sort: {score: -1}});
+		  return Meteor.users.find({}, {fields: {username: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
 	  }
   });
 

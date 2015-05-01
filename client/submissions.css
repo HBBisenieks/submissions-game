@@ -17,6 +17,10 @@ body
 	background-color:#fcfeec;
 	padding:4px;
 }
+.wrapper h1
+{
+	text-align:center;
+}
 .login
 {
 }
@@ -34,14 +38,39 @@ body
 }
 .leaderboard
 {
-	margin-left: auto;
-	margin-right: auto;
 	float: right;
 	width: 550px;
 	background-color: #daa42f;
 	border-top-right-radius:5px;
 	border-bottom-right-radius:5px;
+}
+.leaderboard ul
+{
+	list-style-type:none;
+	list-style-position:outside;
+}
+.leaderboard .score
+{
+	float:left;
+	width:100px;
+	padding:0px;
+	text-align:right;
+}
+.leaderboard .name
+{
+	float:none;
+	margin-left:auto;
+	padding:0px;
+	margin-right:auto;
+	width:200px;
 	text-align:center;
+}
+.leaderboard .stats
+{
+	float:right;
+	width:100px;
+	padding:0px;
+	text-align:left;
 }
 .notice
 {

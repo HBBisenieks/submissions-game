@@ -7,13 +7,16 @@
 		{{> loginButtons}}
 	</div>
 	<div class="wrapper">
+		
+		<h1>Sink or Submit!</h1>
+
 		<div class="user">
 			<div class="userdata">
 				{{#if currentUser}}
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
 				{{> trophy}}
-				<p>Stuff stuff stuff</p>
-				<p>More stuff</p>
+
+				<br />
 
 				{{> statUpdate}}
 				{{> userStats}}
@@ -28,7 +31,15 @@
 
 		<div class="clear"></div>
 		<div class="notice">
-			<p>Some information about the app goes here</p>
+			<p>
+				Sink or Submit is based on a game invented by <a href="https://twitter.com/rachaelkjones" target="_blank">@rachaelkjones</a> and given minor internet notoriety by 
+				<a href="https://twitter.com/ghostwritingcow" target="_blank">@ghostwritingcow</a>.
+				<br />
+				It was developed by <a href="https://twitter.com/hbbisenieks" target="_blank">@HBBisenieks</a>.
+			</p>
+			<p>
+				Sink or Submit is released under an MIT license. The source code is available on <a href="https://github.com/hbbisenieks/submissions-game/" target="_blank">GitHub</a>. Fork it!
+			</p>
 		</div>
 	</div>
 </body>
@@ -64,9 +75,20 @@
 
 <template name="leaderboard">
 	<h1>Leaderboard</h1>
-	<ol>
-		{{#each writer}}
-		<li>{{username}} ({{score}})</li>
-		{{/each}}
-	</ol>
+	<div class="clear"></div>
+	<div class="score">
+			{{#each writer}}
+			<p>{{score}}</p>
+			{{/each}}
+	</div>
+	<div class="stats">
+			{{#each writer}}
+			<p>{{subs}}/{{rejs}}/{{accs}}/{{wds}}</p>
+			{{/each}}
+	</div>
+	<div class="name">
+			{{#each writer}}
+			<p>{{username}}</p>
+			{{/each}}
+	</div>
 </template>
