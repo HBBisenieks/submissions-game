@@ -137,6 +137,7 @@ if (Meteor.isServer) {
 	  user.accs = 0;
 	  user.wds = 0;
 	  user.score = 0;
+	  user.prevScore = 0;
 
 	  if (options.profile)
 	  	user.profile = options.profile;
@@ -178,11 +179,18 @@ if (Meteor.isServer) {
   	},
 
   	incAccs: function () {
+		// Buffers user's previous score in case of accidental acceptance log
+		var score = Meteor.user().score;
   		Meteor.users.update(Meteor.userId(), {$inc: {accs: 1}});
+		Meteor.users.update(Meteor.userId(), {$set: {prevScore: score}});
+		Meteor.users.update(Meteor.userId(), {$set: {score: 0}});
   	},
 
   	decAccs: function () {
+		// Restores user's score in case of accidental acceptance log
+		var prevScore = Meteor.user().prevScore;
   		Meteor.users.update(Meteor.userId(), {$inc: {accs: -1}});
+		Meteor.users.update(Meteor.userId(), {$set: {score: prevScore}});
   	},
 
   	incWds: function () {
