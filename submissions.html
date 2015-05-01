@@ -59,8 +59,8 @@
 <template name="leaderboard">
 	<h1>Leaderboard</h1>
 	<ol>
-		{{#each writer}}
-			<li>{{name}}</li>
+		{{#each Meteor.users}}
+			<li>{{username}}</li>
 		{{/each}}
 	</ol>
 </template>

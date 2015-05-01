@@ -2,116 +2,97 @@ Writers = new Mongo.Collection('writers');
 // Submissions = new Mongo.Collection("submissions");
 
 if (Meteor.isClient) {
-  Session.setDefault('userSubs', 0);
-  Session.setDefault('userRejections', 0);
-  Session.setDefault('userAccept', 0);
-  Session.setDefault('userWithdraw', 0);
-  Session.setDefault('userScore', 0);
 
   Template.body.helpers({
 	  userScore: function () {
-		  var score = Session.get('userSubs') + Session.get('userRejections');
-		  return score;
+		  return Meteor.user().score;
 	  }
   });
 
   Template.leaderboard.helpers({
 	  writer: function () {
-		  return Meteor.users.find({sort: {score: -1}});
+		  return Meteor.users.find({}, {sort: {score: -1}});
 	  }
   });
 
   Template.userStats.helpers({
 	  userSubs: function () {
+		  var id = Meteor.user().username;
 		  return Meteor.user().subs;
-//		  return Meteor.users.find(this.userId, {fields: subs});
-		  return Session.get('userSubs');
 	  },
 	  userRejections: function () {
-		  return Session.get('userRejections');
+		  return Meteor.user().rejs;
 	  },
 	  userAccept: function () {
-		  return Session.get('userAccept');
+		  return Meteor.user().accs;
 	  },
 	  userWithdraw: function () {
-		  return Session.get('userWithdraw');
+		  return Meteor.user().wds;
 	  },
   	  userScore: function () {
-		  var rej = Session.get('userRejections');
-		  var sub = Session.get('userSubs');
-		  var score = rej + sub;
-		  return score;
+		  return Meteor.user().score;
 	  }
   });
 
   Template.statUpdate.events({
 	  'click .subPlus': function () {
 		  // increment user submission
-		  Session.set('userSubs', Session.get('userSubs') + 1);
-		  var writerId = Meteor.userId();
-		  Meteor.users.update(writerId, {$inc: {subs: 1}});
+		  Meteor.call("incSubs");
 	  },
 	  'click .subMinus': function () {
 		  // Only decrement submissions if it would not take submission number below total number of responses
-		  var responses = Session.get('userRejections') + Session.get('userAccept') + Session.get('userWithdraw');
-		  if (Session.get('userSubs') > responses) {
+		  var responses = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
+		  if (Meteor.user().subs > responses) {
+		  	  if (Meteor.user().subs > 0) {
 			  // Confirm before removing submission
-			  if (confirm('Remove submission?')) {
-				  Session.set('userSubs', Session.get('userSubs') - 1);
+			  	if (confirm('Remove submission?')) {
+					  Meteor.call("decSubs");
+				  }
 			  }
 		  }
 	   },
 	  'click .rejPlus': function () {
 		  // increment user rejection only if sum of responses is less than number of submissions
-		  var rej = Session.get('userRejections');
-		  var acc = Session.get('userAccept');
-		  var wd = Session.get('userWithdraw');
-		  var responses = rej + acc + wd;
-		  if (responses < Session.get('userSubs')) {
-			   Session.set('userRejections', Session.get('userRejections') +1);
+		  var responses = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
+		  if (responses < Meteor.user().subs) {
+		  	Meteor.call("incRejs");
 		  }
 	  },
 	  'click .rejMinus': function () {
-		  if (Session.get('userRejections') > 0) {
+		  if (Meteor.user().rejs > 0) {
 			  // Confirm before removing rejection
 			  if (confirm('Remove rejection?')) {
-				  Session.set('userRejections', Session.get('userRejections') - 1);
+		  		  Meteor.call("decRejs");
 		 	 }
 		  }
 	  },
 	  'click .accPlus': function () {
 		  // increment user acceptance only if sum of responses is less than number of submissions
-		  var rej = Session.get('userRejections');
-		  var acc = Session.get('userAccept');
-		  var wd = Session.get('userWithdraw');
-		  var responses = rej + acc + wd;
-		  if (responses < Session.get('userSubs')) {
-			  Session.set('userAccept', Session.get('userAccept') +1);
+		  var responses = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
+		  if (responses < Meteor.user().subs) {
+			  Meteor.call("incAccs");
 		  }
 	  },
 	  'click .accMinus': function () {
-		  if (Session.get('userAccept') > 0) {
+		  if (Meteor.user().accs > 0) {
 			  // Confirm before removing acceptance
 			  if (confirm('Remove acceptance?')) {
-				  Session.set('userAccept', Session.get('userAccept') - 1);
+				  Meteor.call("decAccs");
 			  }
 		  }
 	  },
 	  'click .wdPlus': function () {
 		  // increment user withdrawals only if sum of responses is less than number of submissions
-		  var rej = Session.get('userRejections');
-		  var acc = Session.get('userAccept');
-		  var wd = Session.get('userWithdraw');
-		  var responses = rej + acc + wd;
-		  if (responses < Session.get('userSubs')) {
-			  Session.set('userWithdraw', Session.get('userWithdraw') +1);
+		  var responses = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
+		  if (responses < Meteor.user().subs) {
+			  Meteor.call("incWds");
 		  }
 	  },
 	  'click .wdMinus': function () {
-		  if (Session.get('userWithdraw') > 0) {
+		  if (Meteor.user().wds > 0) {
 			  // Confirm before removing withdrawal
 			  if (confirm('Remove withdrawal?')) {
-				  Session.set('userWithdraw', Session.get('userWithdraw') - 1);
+				  Meteor.call("decWds");
 			  }
 		  }
 	  }
@@ -123,12 +104,15 @@ if (Meteor.isClient) {
 
   Deps.autorun(function() {
 	  Meteor.subscribe('userData');
+  	  Meteor.subscribe('userScores');
   });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
+  	Meteor.publish('userScores', function () {
+  		return Meteor.users.find(profile);
+  	});
   });
 
   Accounts.onCreateUser(function(options, user) {
@@ -154,4 +138,43 @@ if (Meteor.isServer) {
 		  score: 1}
 	  });
   });
+
 }
+  Meteor.methods({
+  	incSubs: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {subs: 1}});
+		Meteor.users.update(Meteor.userId(), {$inc: {score: 1}});
+  	},
+
+  	decSubs: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {subs: -1}});
+		Meteor.users.update(Meteor.userId(), {$inc: {score: -1}});
+  	},
+
+  	incRejs: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {rejs: 1}});
+		Meteor.users.update(Meteor.userId(), {$inc: {score: 1}});
+  	},
+
+  	decRejs: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {rejs: -1}});
+		Meteor.users.update(Meteor.userId(), {$inc: {score: -1}});
+  	},
+
+  	incAccs: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {accs: 1}});
+  	},
+
+  	decAccs: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {accs: -1}});
+  	},
+
+  	incWds: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {wds: 1}});
+  	},
+
+  	decWds: function () {
+  		Meteor.users.update(Meteor.userId(), {$inc: {wds: -1}});
+  	}
+
+  });
