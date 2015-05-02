@@ -48,6 +48,21 @@
 	  }
   });
 
+  Template.statBar.helpers({
+  	  rejWidth: function () {
+	  	  var total = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
+		  return ((Meteor.user().rejs / total) * 100);
+	  },
+	  accWidth: function () {
+	  	  var total = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
+		  return ((Meteor.user().accs / total) * 100);
+	  },
+	  wdWidth: function () {
+	  	  var total = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
+		  return ((Meteor.user().wds / total) * 100);
+	  }
+  });
+
   Template.statUpdate.events({
 	  'click .subPlus': function () {
 		  // increment user submission

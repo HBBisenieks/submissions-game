@@ -37,11 +37,12 @@ body
 {
 	padding:10px;
 }
-/* FInish implementing statbar */
+/* User stat bar */
 .statbar
 {
 	width:300px;
 	border-radius:10px;
+	background-color:#fff;
 	height:40px;
 	padding:0px;
 	margin-left:auto;
@@ -50,7 +51,21 @@ body
 .rejs
 {
 	background-color:#ff0000;
-
+	height:40px;
+	float:left;
+}
+.accs
+{
+	background-color:#00ff00;
+	height:40px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.wds
+{
+	background-color:#555;
+	height:40px;
+	float:right;
 }
 .leaderboard
 {

@@ -20,6 +20,7 @@
 
 				{{> statUpdate}}
 				{{> userStats}}
+				{{> statBar}}
 				{{else}}
 				<h1>You must be logged in to use this feature</h1>
 				{{/if}}
@@ -71,6 +72,14 @@
 		<li>Withdrawals: {{userWithdraw}}</li>
 	</ul>
 	<p>Score: {{userScore}}</p>
+</template>
+
+<template name="statBar">
+	<div class="statbar">
+		<div class="rejs" style="width:{{rejWidth}}%"></div>
+		<div class="wds" style="width:{{wdWidth}}%"></div>
+		<div class="accs" style="width:{{accWidth}}%"></div>
+	</div>
 </template>
 
 <template name="leaderboard">
