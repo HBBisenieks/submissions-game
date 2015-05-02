@@ -37,6 +37,21 @@ body
 {
 	padding:10px;
 }
+/* FInish implementing statbar */
+.statbar
+{
+	width:300px;
+	border-radius:10px;
+	height:40px;
+	padding:0px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.rejs
+{
+	background-color:#ff0000;
+
+}
 .leaderboard
 {
 	float: right;
