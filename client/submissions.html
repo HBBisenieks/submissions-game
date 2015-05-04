@@ -3,17 +3,21 @@
 </head>
 
 <body>
+	<!-- Put if block around this to only show the user area when there's a user logged in
+	     otherwise, the login area appears in the main wrapper div -->
 	<div class="login">
 		{{> loginButtons}}
 	</div>
 	<div class="wrapper">
 		
+		<!-- Put in div with header image for title area here -->
 		<h1>Sink or Submit!</h1>
 
+		{{#if currentUser}}
 		<div class="user">
 			<div class="userdata">
-				{{#if currentUser}}
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
+				<!-- Get a different trophy picture? -->
 				{{> trophy}}
 
 				<br />
@@ -21,14 +25,15 @@
 				{{> statUpdate}}
 				{{> userStats}}
 				{{> statBar}}
-				{{else}}
-				<h1>You must be logged in to use this feature</h1>
-				{{/if}}
 			</div>
 		</div>
 		<div class="leaderboard">
 				{{> leaderboard}}
 		</div>
+		{{else}}
+		<!-- Next up: put a login area here when a user isn't logged in -->
+		<h1>You must be logged in to use this feature</h1>
+		{{/if}}
 
 		<div class="clear"></div>
 		<div class="notice">
@@ -75,9 +80,9 @@
 </template>
 
 <template name="statBar">
+<!-- Not working right now, maybe replace with pie chart? -->
 	<div class="statbar">
 		<div class="rejs" style="width:{{rejWidth}}%"></div>
-		<div class="wds" style="width:{{wdWidth}}%"></div>
 		<div class="accs" style="width:{{accWidth}}%"></div>
 	</div>
 </template>

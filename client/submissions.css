@@ -42,7 +42,7 @@ body
 {
 	width:300px;
 	border-radius:10px;
-	background-color:#fff;
+	background-color:#555;
 	height:40px;
 	padding:0px;
 	margin-left:auto;
@@ -53,13 +53,16 @@ body
 	background-color:#ff0000;
 	height:40px;
 	float:left;
+	border-bottom-left-radius:10px;
+	border-top-left-radius:10px;
 }
 .accs
 {
 	background-color:#00ff00;
 	height:40px;
-	margin-left:auto;
-	margin-right:auto;
+	float:right;
+	border-top-right-radius:10px;
+	border-bottom-right-radius:10px;
 }
 .wds
 {
