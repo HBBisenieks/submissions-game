@@ -14,6 +14,21 @@
 	  }
   });
 
+  Template.userGroup.helpers({
+	  inGroup: function () {
+		  // Return true if user is in a group
+		  if (Meteor.user().groupId === null) {
+			  return false;
+		  }
+		  return true;
+	  },
+
+	  groupName: function () {
+		  // Returns group name
+		  return Meteor.user().groupId;
+	  },
+  });
+
   Template.trophy.helpers({
 	  leading: function () {
 		  // Return true if current user has highest score

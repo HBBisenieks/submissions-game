@@ -3,8 +3,10 @@ body
 {
 	font-family:Verdana;
 	color:#fff;
-	background-color:#501d1b;
-	background-image: linear-gradient(to bottom, #501d1b, #000 100%);
+	/*background-color:#501d1b;
+	background-image: linear-gradient(to bottom, #501d1b, #000 100%);*/
+	background-color:#003d6b;
+	background-image:linear-gradient(to bottom, #003d6b, #000 100%);
 	background-attachment:fixed;
 }
 .wrapper
@@ -13,11 +15,13 @@ body
 	margin-right: auto;
 	width: 900px;
 	border-radius: 5px;
-	color:#333;
-	background-color:#fcfeec;
+	/*color:#333;
+	background-color:#fcfeec;*/
+	color:#ddd;
+	background-color:#ccc9dc;
 	padding:4px;
 }
-.wrapper h1
+.wrapper h1,h2,h3,h4,h5,h6
 {
 	text-align:center;
 }
@@ -46,9 +50,14 @@ body
 {
 	float: left;
 	width: 350px;
-	background-color:#8e8f77;
+	/*background-color:#8e8f77;*/
+	background-color:#0c1821;
 	border-top-left-radius:5px;
 	border-bottom-left-radius:5px;
+}
+.user form
+{
+	color:#000;
 }
 .userdata
 {
@@ -91,7 +100,8 @@ body
 {
 	float: right;
 	width: 550px;
-	background-color: #daa42f;
+	/*background-color: #daa42f;*/
+	background-color:#324a5f;
 	border-top-right-radius:5px;
 	border-bottom-right-radius:5px;
 }
@@ -131,6 +141,7 @@ body
 	width:900px;
 	text-align:center;
 	font-size:75%;
+	color:#333;
 }
 .notice a
 {

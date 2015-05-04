@@ -11,6 +11,7 @@
 	  user.wds = 0;
 	  user.score = 0;
 	  user.prevScore = 0;
+	  user.groupId = null
 
 	  if (options.profile)
 	  	user.profile = options.profile;
@@ -25,7 +26,8 @@
 		  rejs: 1,
 		  accs: 1,
 		  wds: 1,
-		  score: 1}
+		  score: 1,
+	  	  groupId: 1}
 	  });
   });
 
@@ -71,6 +73,10 @@
 
   	decWds: function () {
   		Meteor.users.update(Meteor.userId(), {$inc: {wds: -1}});
-  	}
+  	},
+
+	setGroup: function (group) {
+		Meteor.users.update(Meteor.user(), {$set: {groupId: group}});
+	}
 
   });

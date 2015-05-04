@@ -9,7 +9,6 @@
 		{{> loginButtons}}
 	</div>
 	<div class="wrapper">
-		<!-- Put in div with header image for title area here -->
 		<div class="header">
 			<div calss="header-center">
 				<h1>Sink or Submit!</h1>
@@ -21,6 +20,7 @@
 		<div class="user">
 			<div class="userdata">
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
+				{{> userGroup}}
 				<!-- Get a different trophy picture? -->
 				{{> trophy}}
 
@@ -28,7 +28,7 @@
 
 				{{> statUpdate}}
 				{{> userStats}}
-				{{> statBar}}
+				<!--{{> statBar}}-->
 			</div>
 		</div>
 		<div class="leaderboard">
@@ -53,6 +53,20 @@
 		</div>
 	</div>
 </body>
+
+<template name="userGroup">
+	{{#if inGroup}}
+		<h3>{{groupName}}</h3>
+	{{else}}
+		{{> joinGroup}}
+	{{/if}}
+</template>
+
+<template name="joinGroup">
+	<form class="groupName">
+		<input type="text" name="groupName" placeholder="Enter group name" />
+	</form>
+</template>
 
 <template name="statUpdate">
 	<button class="subPlus">S +</button>
