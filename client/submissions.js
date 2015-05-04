@@ -29,6 +29,14 @@
 	  },
   });
 
+  Template.joinGroup.events({
+	  'click input[type=radio]': function (event) {
+		  var task = $('input[name=group-select]:checked').val();
+		  console.log(task);
+		  return task;
+	  }
+  });
+
   Template.trophy.helpers({
 	  leading: function () {
 		  // Return true if current user has highest score
