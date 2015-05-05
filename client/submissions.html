@@ -72,18 +72,19 @@
 	</form>
 	<br />
 	{{#if join}}
-	  <form class="groupName">
-		  <input type="text" name="groupName" placeholder="Group id" /><br />
-		  <input type="password" name="groupSecret" placeholder="Group secret" />
+	  <form class="joinGroup">
+		  <input type="text" name="groupName" placeholder="Group id" required /><br />
+		  <input type="password" name="groupSecret" placeholder="Group secret" required />
 	  </form>
 	{{else}}
 	  {{#if create}}
-	    <form>
-		    <input type="text" name="groupName" placeholder="New group id" /><br />
+	    <form class="createGroup">
+		    <input type="text" name="groupName" placeholder="New group id" required /><br />
 		    <input type="text" name="groupDescription" placeholder="New group display-name" /><br />
-		    <input type="password" name="groupSecret" placeholder="New group secret" /><br />
-		    <input type="password" name="secretConfirm" placeholder="Re-enter group secret" />
+		    <input type="password" name="groupSecret" placeholder="New group secret" required /><br />
+		    <input type="password" name="secretConfirm" placeholder="Re-enter group secret" required />
 	    </form>
+	  {{else}}
 	  {{/if}}
 	{{/if}}
 </template>
@@ -126,7 +127,9 @@
 </template>
 
 <template name="leaveGroup">
-	<button class="leave">Leave group</button>
+	{{#if inGroup}}
+	  <button class="leave">Leave group</button>
+	{{/if}}
 </template>
 
 <template name="leaderboard">

@@ -11,7 +11,8 @@
 	  user.wds = 0;
 	  user.score = 0;
 	  user.prevScore = 0;
-	  user.groupId = null
+	  user.groupId = null;
+  	  user.groupAdmin = false;
 
 	  if (options.profile)
 	  	user.profile = options.profile;
@@ -27,13 +28,16 @@
 		  accs: 1,
 		  wds: 1,
 		  score: 1,
-	  	  groupId: 1}
+	  	  groupId: 1,
+	  	  groupAdmin: 1}
 	  });
   });
 
   Meteor.methods({
-	  joinGroup: function (group) {
+	  joinGroup: function (group, admin) {
 	  	Meteor.users.update(Meteor.userId(), {$set: {groupId: group}});
+		if (admin)
+			Meteor.users.update(Meteor.userId(), {$set: {groupAdmin: admin}});
 	  },
 
 	  leaveGroup: function () {

@@ -32,8 +32,12 @@
   Template.joinGroup.events({
 	  'click input[type=radio]': function (event) {
 		  var task = $('input[name=group-select]:checked').val();
-		  console.log(task);
 		  Session.set('action', task);
+	  },
+
+	  'submit .joinGroup': function (event) {
+		  var group = event.target.groupName.value;
+		  var secret = event.target.groupSecret.value;
 	  }
   });
 
@@ -56,6 +60,16 @@
 		  if (confirm("Are you sure you want to leave your group?") && confirm("Are you really sure?")) {
 			  Meteor.call("leaveGroup");
 		  }
+	  }
+  });
+
+  Template.leaveGroup.helpers({
+  	inGroup: function () {
+		  // Return true if user is in a group
+		  if (Meteor.user().groupId === null) {
+			  return false;
+		  }
+		  return true;
 	  }
   });
 
