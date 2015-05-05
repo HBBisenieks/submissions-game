@@ -19,3 +19,4 @@ In its current incarnation, submissions-game is only fit to be run on a developm
 If you're undeterred by the above, getting your own instance of submissions-game up and running isn't terribly challenging.  Install Meteor first, if you haven't already, as submissions-game depends on it.
 
 After Meteor installation has finished, clone the repo and cd into the resulting directory and then run meteor, and you're done.
+
