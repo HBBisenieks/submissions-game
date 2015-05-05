@@ -32,51 +32,59 @@
   });
 
   Meteor.methods({
-  	incSubs: function () {
+	  joinGroup: function (group) {
+	  	Meteor.users.update(Meteor.userId(), {$set: {groupId: group}});
+	  },
+
+	  leaveGroup: function () {
+		Meteor.users.update(Meteor.userId(), {$set: {groupId: null}});
+	  },
+	
+  	  incSubs: function () {
   		Meteor.users.update(Meteor.userId(), {$inc: {subs: 1}});
 		Meteor.users.update(Meteor.userId(), {$inc: {score: 1}});
-  	},
+  	  },
 
-  	decSubs: function () {
+  	  decSubs: function () {
   		Meteor.users.update(Meteor.userId(), {$inc: {subs: -1}});
 		Meteor.users.update(Meteor.userId(), {$inc: {score: -1}});
-  	},
+  	  },
 
-  	incRejs: function () {
+  	  incRejs: function () {
   		Meteor.users.update(Meteor.userId(), {$inc: {rejs: 1}});
 		Meteor.users.update(Meteor.userId(), {$inc: {score: 1}});
-  	},
+  	  },
 
-  	decRejs: function () {
+  	  decRejs: function () {
   		Meteor.users.update(Meteor.userId(), {$inc: {rejs: -1}});
 		Meteor.users.update(Meteor.userId(), {$inc: {score: -1}});
-  	},
+  	  },
 
-  	incAccs: function () {
+  	  incAccs: function () {
 		// Buffers user's previous score in case of accidental acceptance log
 		var score = Meteor.user().score;
   		Meteor.users.update(Meteor.userId(), {$inc: {accs: 1}});
 		Meteor.users.update(Meteor.userId(), {$set: {prevScore: score}});
 		Meteor.users.update(Meteor.userId(), {$set: {score: 0}});
-  	},
+  	  },
 
-  	decAccs: function () {
+  	  decAccs: function () {
 		// Restores user's score in case of accidental acceptance log
 		var prevScore = Meteor.user().prevScore;
   		Meteor.users.update(Meteor.userId(), {$inc: {accs: -1}});
 		Meteor.users.update(Meteor.userId(), {$set: {score: prevScore}});
-  	},
+  	  },
 
-  	incWds: function () {
+  	  incWds: function () {
   		Meteor.users.update(Meteor.userId(), {$inc: {wds: 1}});
-  	},
+  	  },
 
-  	decWds: function () {
+  	  decWds: function () {
   		Meteor.users.update(Meteor.userId(), {$inc: {wds: -1}});
-  	},
+  	  },
 
-	setGroup: function (group) {
+	  setGroup: function (group) {
 		Meteor.users.update(Meteor.user(), {$set: {groupId: group}});
-	}
+	  }
 
   });

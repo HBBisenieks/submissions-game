@@ -37,6 +37,14 @@
 	  }
   });
 
+  Template.leaveGroup.events({
+	  'click .leave': function () {
+		  if (confirm("Are you sure you want to leave your group?") && confirm("Are you really sure?")) {
+			  Meteor.call("leaveGroup");
+		  }
+	  }
+  });
+
   Template.trophy.helpers({
 	  leading: function () {
 		  // Return true if current user has highest score

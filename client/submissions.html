@@ -29,6 +29,8 @@
 				{{> statUpdate}}
 				{{> userStats}}
 				<!--{{> statBar}}-->
+				<br />
+				{{> leaveGroup}}
 			</div>
 		</div>
 		<div class="leaderboard">
@@ -107,6 +109,10 @@
 		<div class="rejs" style="width:{{rejWidth}}%"></div>
 		<div class="accs" style="width:{{accWidth}}%"></div>
 	</div>
+</template>
+
+<template name="leaveGroup">
+	<button class="leave">Leave group</button>
 </template>
 
 <template name="leaderboard">
