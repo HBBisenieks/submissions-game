@@ -1,4 +1,5 @@
 // Client code
+Groups = new Mongo.Collection("groups");
 
   Template.body.helpers({
 	  userScore: function () {
@@ -25,7 +26,7 @@
 
 	  groupName: function () {
 		  // Returns group name
-		  return Meteor.user().groupId;
+		  return Groups.find(Meteor.user().groupId, {fields: {groupDescription: 1}});
 	  },
   });
 
@@ -33,6 +34,8 @@
 	  'click input[type=radio]': function (event) {
 		  var task = $('input[name=group-select]:checked').val();
 		  Session.set('action', task);
+
+		  Meteor.call("createGroup", "rats", "Rodents Assembled, Talking Storycraft", "rats!");
 	  },
 
 	  'submit .joinGroup': function (event) {

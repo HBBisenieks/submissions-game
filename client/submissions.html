@@ -58,7 +58,7 @@
 
 <template name="userGroup">
 	{{#if inGroup}}
-		<h3>{{groupName}}</h3>
+		<h3>{{groupName.groupDescription}}</h3>
 	{{else}}
 		<p>You aren't in a group yet. What would you like to do?</p>
 		{{> joinGroup}}
