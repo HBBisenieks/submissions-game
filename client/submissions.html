@@ -60,6 +60,7 @@
 	{{#if inGroup}}
 		<h3>{{groupName}}</h3>
 	{{else}}
+		<p>You aren't in a group yet. What would you like to do?</p>
 		{{> joinGroup}}
 	{{/if}}
 </template>
@@ -69,9 +70,22 @@
 		<input type="radio" name="group-select" value="join">Join an Existing Group<br />
 		<input type="radio" name="group-select" value="create">Create a New Group
 	</form>
-	<form class="groupName">
-		<input type="text" name="groupName" placeholder="Enter group name" />
-	</form>
+	<br />
+	{{#if join}}
+	  <form class="groupName">
+		  <input type="text" name="groupName" placeholder="Group id" /><br />
+		  <input type="password" name="groupSecret" placeholder="Group secret" />
+	  </form>
+	{{else}}
+	  {{#if create}}
+	    <form>
+		    <input type="text" name="groupName" placeholder="New group id" /><br />
+		    <input type="text" name="groupDescription" placeholder="New group display-name" /><br />
+		    <input type="password" name="groupSecret" placeholder="New group secret" /><br />
+		    <input type="password" name="secretConfirm" placeholder="Re-enter group secret" />
+	    </form>
+	  {{/if}}
+	{{/if}}
 </template>
 
 <template name="statUpdate">

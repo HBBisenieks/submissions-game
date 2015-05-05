@@ -33,7 +33,21 @@
 	  'click input[type=radio]': function (event) {
 		  var task = $('input[name=group-select]:checked').val();
 		  console.log(task);
-		  return task;
+		  Session.set('action', task);
+	  }
+  });
+
+  Template.joinGroup.helpers({
+	  join: function () {
+		  if (Session.equals('action', "join"))
+			  return true;
+		  return false;
+	  },
+
+	  create: function () {
+		  if (Session.equals('action', "create"))
+			  return true;
+		  return false;
 	  }
   });
 
