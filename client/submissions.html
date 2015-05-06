@@ -70,23 +70,40 @@
 		<input type="radio" name="group-select" value="join">Join an Existing Group<br />
 		<input type="radio" name="group-select" value="create">Create a New Group
 	</form>
-	<br />
+	<div class="clear"><br /></div>
 	{{#if join}}
-	  <form class="joinGroup">
-		  <input type="text" name="groupName" placeholder="Group id" required /><br />
-		  <input type="password" name="groupSecret" placeholder="Group secret" required />
-	  </form>
+	  <div class="groupleft">
+		  Group ID:<br />
+		  Group Secret:
+	  </div>
+	  <div class="groupright">
+		  <form class="joinGroup">
+		  	<input type="text" name="groupName" placeholder="Group id" required /><br />
+			<input type="password" name="groupSecret" placeholder="Group secret" required /><br />
+			<input type="submit" value="Join Group" />
+		  </form>
+	  </div>
 	{{else}}
 	  {{#if create}}
-	    <form class="createGroup">
-		    <input type="text" name="groupName" placeholder="New group id" required /><br />
-		    <input type="text" name="groupDescription" placeholder="New group display-name" /><br />
-		    <input type="password" name="groupSecret" placeholder="New group secret" required /><br />
-		    <input type="password" name="secretConfirm" placeholder="Re-enter group secret" required />
-	    </form>
+	    <div class="groupleft">
+		    Group ID:<br />
+		    Group Display Name:<br />
+		    Group Secret:<br />
+		    Re-enter Secret:
+	    </div>
+	    <div class="groupright">
+		    <form class="createGroup">
+			    <input type="text" name="groupName" placeholder="New group id" required /><br />
+			    <input type="text" name="groupDescription" placeholder="New group display-name" required /><br />
+			    <input type="password" name="groupSecret" placeholder="New group secret" required /><br />
+			    <input type="password" name="secretConfirm" placeholder="Re-enter group secret" required /><br />
+			    <input type="submit" value="Create group"/>
+		    </form>
+	    </div>
 	  {{else}}
 	  {{/if}}
 	{{/if}}
+	<div class="clear"></div>
 </template>
 
 <template name="statUpdate">
@@ -95,10 +112,10 @@
 	<button class="accPlus">A +</button>
 	<button class="wdPlus">W +</button>
 	<br />
-	<button class="subMinus">S -</button>
-	<button class="rejMinus">R -</button>
-	<button class="accMinus">A -</button>
-	<button class="wdMinus">W -</button>
+	<button class="subMinus">&nbsp;S -</button>
+	<button class="rejMinus">&nbsp;R -</button>
+	<button class="accMinus">&nbsp;A -</button>
+	<button class="wdMinus">&nbsp;W -</button>
 </template>
 
 <template name="trophy">

@@ -40,6 +40,24 @@ Groups = new Mongo.Collection("groups");
 	  'submit .joinGroup': function (event) {
 		  var group = event.target.groupName.value;
 		  var secret = event.target.groupSecret.value;
+		  var enc = CryptoJS.MD5(secret).toString();
+		  Meteor.call("joinGroup", group, false, enc);
+	  },
+
+	  'submit .createGroup': function (event) {
+		  var group = event.target.groupName.value;
+		  var desc = event.target.groupDescription.value;
+		  var secret = event.target.groupSecret.value;
+		  var conf = event.target.secretConfirm.value;
+
+		  if (! Groups.findOne({groupId: group})) {
+			  console.log("Go ahead");
+			  if (conf === secret) {
+				  var enc = CryptoJS.MD5(secret).toString();
+				  Meteor.call("createGroup", group, desc, enc);
+				  Meteor.call("joinGroup", group, true, enc);
+			  }
+		  }
 	  }
   });
 

@@ -47,13 +47,16 @@ Meteor.publish("groups", function () {
 });
 
 Meteor.methods({
-	joinGroup: function (group, admin) {
-		// takes a group's shortname and converts it to group's _id
-		var id = Groups.findOne({groupId: group}, {fields: {_id: 1}})._id;
-		console.log(id);
-		Meteor.users.update(Meteor.userId(), {$set: {groupId: id}});
-		if (admin)
-			Meteor.users.update(Meteor.userId(), {$set: {groupAdmin: admin}});
+
+	joinGroup: function (group, admin, secret) {
+		// confirms that secret provided matches with group secret
+		if (secret === Groups.findOne({groupId: group}, {fields: {secret: 1}}).secret) {
+			// takes a group's shortname and converts it to group's _id
+			var id = Groups.findOne({groupId: group}, {fields: {_id: 1}})._id;
+			Meteor.users.update(Meteor.userId(), {$set: {groupId: id}});
+			if (admin)
+				Meteor.users.update(Meteor.userId(), {$set: {groupAdmin: admin}});
+		}
 	},
 
 	leaveGroup: function () {
@@ -69,8 +72,6 @@ Meteor.methods({
 			groupDescription: groupDescription,
 			secret: secret
 		});
-		
-		console.log(groupId);
 	},
 	
   	incSubs: function () {

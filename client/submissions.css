@@ -25,6 +25,7 @@ body
 {
 	text-align:center;
 }
+/* Header style starts here */
 .header
 {
 	background-image:url("header.jpeg");
@@ -42,10 +43,16 @@ body
 	margin-left:auto;
 	margin-right:auto;
 }
+/* Header style ends here
+ *
+ * Login area style starts here */
 .login
 {
 	float:left;
 }
+/* Login area style ends here
+ *
+ * User area style starts here */
 .user
 {
 	float: left;
@@ -59,7 +66,21 @@ body
 {
 	padding:10px;
 }
-/* User stat bar */
+/* Group stuff style starts here */
+.groupleft
+{
+	float:left;
+	line-height:1.5;
+}
+.groupright
+{
+	float:right;
+}
+.groupright input
+{
+	width:140px;
+}
+/* User stat bar style starts here */
 .statbar
 {
 	width:300px;
@@ -92,6 +113,10 @@ body
 	height:40px;
 	float:right;
 }
+/* User stat bar style ends here */
+/* User area style ends here
+ *
+ * Leaderboard area style starts here */
 .leaderboard
 {
 	float: right;
@@ -132,6 +157,9 @@ body
 	text-align:left;
 	vertical-align:text-top;
 }
+/* Leaderbaord area style ends here
+ *
+ * Notice area style starts here */
 .notice
 {
 	width:900px;
@@ -145,4 +173,7 @@ body
 	font-weight:bold;
 	color:#000;
 }
+/* Notice area style ends here
+ *
+ * Miscellaneous other styling starts here */
 .clear{clear:both;}
