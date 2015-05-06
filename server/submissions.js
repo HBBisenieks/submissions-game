@@ -2,7 +2,7 @@ Groups = new Mongo.Collection("groups");
 
 Meteor.startup(function () {
 	Meteor.publish('userScores', function () {
-		return Meteor.users.find({}, {profile: {subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}});
+		return Meteor.users.find({}, {profile: {subs: 1, rejs: 1, accs: 1, wds: 1, score: 1, groupId: 1}});
 	});
 
 /*	Meteor.publish('groups', function () {
@@ -40,7 +40,7 @@ Meteor.publish('userData', function() {
 });
 
 Meteor.publish("groups", function () {
-	return Groups.find(Meteor.user().groupId, {fields: {
+	return Groups.find({}, {fields: {
 		groupId: 1,
 		groupDescription: 1}
 	});
@@ -48,7 +48,10 @@ Meteor.publish("groups", function () {
 
 Meteor.methods({
 	joinGroup: function (group, admin) {
-		Meteor.users.update(Meteor.userId(), {$set: {groupId: group}});
+		// takes a group's shortname and converts it to group's _id
+		var id = Groups.findOne({groupId: group}, {fields: {_id: 1}})._id;
+		console.log(id);
+		Meteor.users.update(Meteor.userId(), {$set: {groupId: id}});
 		if (admin)
 			Meteor.users.update(Meteor.userId(), {$set: {groupAdmin: admin}});
 	},
@@ -66,6 +69,8 @@ Meteor.methods({
 			groupDescription: groupDescription,
 			secret: secret
 		});
+		
+		console.log(groupId);
 	},
 	
   	incSubs: function () {

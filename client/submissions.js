@@ -1,4 +1,5 @@
 // Client code
+Meteor.subscribe('groups');
 Groups = new Mongo.Collection("groups");
 
   Template.body.helpers({
@@ -11,7 +12,7 @@ Groups = new Mongo.Collection("groups");
   Template.leaderboard.helpers({
 	  writer: function () {
 		  // return all user's attributes for leaderboard
-		  return Meteor.users.find({}, {fields: {username: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
+		  return Meteor.users.find({groupId: Meteor.user().groupId}, {fields: {username: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
 	  }
   });
 
@@ -26,7 +27,7 @@ Groups = new Mongo.Collection("groups");
 
 	  groupName: function () {
 		  // Returns group name
-		  return Groups.find(Meteor.user().groupId, {fields: {groupDescription: 1}});
+		  return Groups.findOne(Meteor.user().groupId, {fields: {groupDescription: 1}});
 	  },
   });
 
@@ -34,8 +35,6 @@ Groups = new Mongo.Collection("groups");
 	  'click input[type=radio]': function (event) {
 		  var task = $('input[name=group-select]:checked').val();
 		  Session.set('action', task);
-
-		  Meteor.call("createGroup", "rats", "Rodents Assembled, Talking Storycraft", "rats!");
 	  },
 
 	  'submit .joinGroup': function (event) {
@@ -83,7 +82,7 @@ Groups = new Mongo.Collection("groups");
 		  // 
 		  // Will display trophy to multiple users who share high score
 		  // even though leaderboard will still rank one above others
-		  if (Meteor.userId() === Meteor.users.findOne({}, {fields: {_id: 1}, sort: {score: -1}})._id) {
+		  if (Meteor.userId() === Meteor.users.findOne({groupId: Meteor.user().groupId}, {fields: {_id: 1}, sort: {score: -1}})._id) {
 			  return true;
 		  }
 		  return false;
