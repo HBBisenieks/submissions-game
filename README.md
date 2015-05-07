@@ -14,9 +14,10 @@ The Submissions Game is built off of Meteor.
 
 # Installation
 
-In its current incarnation, submissions-game is only fit to be run on a development server or on a private network.  Anyone can sign up, and there's just one big group.
+Currently submissions-game is a beta product. While groups have been implemented, group administration is still not fully refined: once set, a group's description and secret are still fixed, so although you can kick a member from a group if you are an admin, there's nothing to prevent them from re-joining. Also, it's entirely possible to orphan a group and leave it without any admins. Perhaps more importantly, signing up for an account is trivially simple right now; just provide a username and password--no email confirmation needed.
 
 If you're undeterred by the above, getting your own instance of submissions-game up and running isn't terribly challenging.  Install Meteor first, if you haven't already, as submissions-game depends on it.
 
 After Meteor installation has finished, clone the repo and cd into the resulting directory and then run meteor, and you're done.
+
 

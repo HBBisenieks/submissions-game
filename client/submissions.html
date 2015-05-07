@@ -19,7 +19,7 @@
 		<div class="clear"><br /></div>
 
 		{{#if currentUser}}
-		<div class="user" id="user" style="border-bottom-right-radius:{{userRadius}}px">
+		<div class="user">
 			<div class="userdata">
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
 				{{> userGroup}}
@@ -39,7 +39,7 @@
 				{{/if}}
 			</div>
 		</div>
-		<div class="leaderboard" id="leaderboard">
+		<div class="leaderboard">
 				{{> leaderboard}}
 		</div>
 		{{else}}
