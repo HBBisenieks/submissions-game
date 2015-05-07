@@ -161,6 +161,7 @@
 <template name="groupAdmin">
 	<h1>A D M I N !</h1>
 	<select class="members">
+		<option>--</option>
 		{{#each writer}}
 		<!-- Return list of users with * next to the names of all other group admins -->
 		<option value="{{username}}" name="name">{{username}}{{#if groupAdmin}}*{{/if}}</option>

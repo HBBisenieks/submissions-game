@@ -61,19 +61,30 @@ Meteor.methods({
 	},
 
 	makeAdmin: function (id, admin) {
-		Meteor.users.update(id, {$set: {groupAdmin: admin}});
+		// Below comment no longer true, but I'm keeping it there so that this stupid function will
+		// remember what it's done.
+		//
+		// THIS PIECE OF SHIT STILL WON'T GIVE ACCURATE NUMBERS ON GROUP ADMINS ON THE FIRST TRY
+		// AND I HATE ITS GUTS
 		var gid = Meteor.users.findOne(id).groupId;
-		var numAdmins = Groups.findOne(gid).admins;
-		console.log(numAdmins);
+		console.log("Group id: " + gid);
 		if (admin) {
 			console.log("Adding admin");
-			numAdmins ++;
+			Meteor.users.update(id, {$set: {groupAdmin: admin}});
+			var num = Meteor.users.find({groupId: gid, groupAdmin: true}).fetch().length;
+			console.log("Number of admins in group: " + num);
+			Groups.update(gid, {$set: {admins: num}});
+			console.log("Group.find.admins: " + Groups.findOne(Meteor.users.findOne(id).groupId).admins);
 		} else {
-			console.log("Removing admin");
-			numAdmins --;
+			console.log("Setting admin status to " + admin);
+			Meteor.users.update(id, {$set: {groupAdmin: admin}});
+			console.log("Calculating number of admins...");
+			var num = Meteor.users.find({groupId: gid, groupAdmin: true}).fetch().length;
+			console.log("Number of admins in group, according to users.find.length method: " + num);
+			Groups.update(gid, {$set: {admins: num}});
+			console.log("Group.find.admins: " + Groups.findOne(Meteor.users.findOne(id).groupId).admins);
 		}
-		console.log(numAdmins);
-		Groups.update(gid, {$set: {admins: numAdmins}});
+		console.log("Final number of admins: " + num);
 	},
 
 	adminNum: function (gid, number) {
@@ -82,8 +93,9 @@ Meteor.methods({
 
 	leaveGroup: function (id) {
 		// Set user id's group to null and strip admin privileges
-		Meteor.users.update(id, {$set: {groupId: null}});
+		console.log("User with id " + id + " leaving group");
 		Meteor.call("makeAdmin", id, false);
+		Meteor.users.update(id, {$set: {groupId: null}});
 	},
 	  
 	createGroup: function (groupId, groupDescription, secret) {

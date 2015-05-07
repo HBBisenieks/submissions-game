@@ -116,8 +116,13 @@ Template.joinGroup.helpers({
 
 Template.leaveGroup.events({
 	'click .leave': function () {
-		if (confirm("Are you sure you want to leave your group?") && confirm("Are you really sure?")) {
-			Meteor.call("leaveGroup", Meteor.userId());
+		console.log(Meteor.user().groupAdmin);
+		if ((Meteor.user().groupAdmin === true) && (Groups.findOne(Meteor.user().groupId).admins < 2)) {
+			alert("You are the only admin for this group. Please grant admin rights to another member before leaving the group.");
+		} else {
+			if (confirm("Are you sure you want to leave your group?") && confirm("Are you really sure?")) {
+				Meteor.call("leaveGroup", Meteor.userId());
+			}
 		}
 	}
 });
