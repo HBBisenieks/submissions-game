@@ -42,7 +42,8 @@ Meteor.publish('userData', function() {
 Meteor.publish("groups", function () {
 	return Groups.find({}, {fields: {
 		groupId: 1,
-		groupDescription: 1}
+		groupDescription: 1,
+		admins: 1}
 	});
 });
 
@@ -59,8 +60,30 @@ Meteor.methods({
 		}
 	},
 
-	leaveGroup: function () {
-		Meteor.users.update(Meteor.userId(), {$set: {groupId: null}});
+	makeAdmin: function (id, admin) {
+		Meteor.users.update(id, {$set: {groupAdmin: admin}});
+		var gid = Meteor.users.findOne(id).groupId;
+		var numAdmins = Groups.findOne(gid).admins;
+		console.log(numAdmins);
+		if (admin) {
+			console.log("Adding admin");
+			numAdmins ++;
+		} else {
+			console.log("Removing admin");
+			numAdmins --;
+		}
+		console.log(numAdmins);
+		Groups.update(gid, {$set: {admins: numAdmins}});
+	},
+
+	adminNum: function (gid, number) {
+		Groups.update(gid, {$set: {admins: number}});
+	},
+
+	leaveGroup: function (id) {
+		// Set user id's group to null and strip admin privileges
+		Meteor.users.update(id, {$set: {groupId: null}});
+		Meteor.call("makeAdmin", id, false);
 	},
 	  
 	createGroup: function (groupId, groupDescription, secret) {

@@ -48,6 +48,12 @@ body
  * Login area style starts here */
 .login
 {
+	margin-left:auto;
+	margin-right:auto;
+	color:#333;
+}
+.logout
+{
 	float:left;
 }
 /* Login area style ends here

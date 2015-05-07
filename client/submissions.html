@@ -5,9 +5,11 @@
 <body>
 	<!-- Put if block around this to only show the user area when there's a user logged in
 	     otherwise, the login area appears in the main wrapper div -->
-	<div class="login">
+	{{#if currentUser}}
+	<div class="logout">
 		{{> loginButtons}}
 	</div>
+	{{/if}}
 	<div class="wrapper">
 		<div class="header">
 			<div calss="header-center">
@@ -17,7 +19,7 @@
 		<div class="clear"><br /></div>
 
 		{{#if currentUser}}
-		<div class="user">
+		<div class="user" id="user" style="border-bottom-right-radius:{{userRadius}}px">
 			<div class="userdata">
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
 				{{> userGroup}}
@@ -31,14 +33,21 @@
 				<!--{{> statBar}}-->
 				<br />
 				{{> leaveGroup}}
+				<br />
+				{{#if isAdmin}}
+				{{> groupAdmin}}
+				{{/if}}
 			</div>
 		</div>
-		<div class="leaderboard">
+		<div class="leaderboard" id="leaderboard">
 				{{> leaderboard}}
 		</div>
 		{{else}}
 		<!-- Next up: put a login area here when a user isn't logged in -->
-		<h1>You must be logged in to use this feature</h1>
+		<div class=login>
+			<h1>You must be logged in to use this feature</h1>
+			{{> loginButtons}}
+		</div>
 		{{/if}}
 
 		<div class="clear"></div>
@@ -58,7 +67,7 @@
 
 <template name="userGroup">
 	{{#if inGroup}}
-		<h3>{{groupName.groupDescription}}</h3>
+		<h4>{{groupName.groupDescription}}</h4>
 	{{else}}
 		<p>You aren't in a group yet. What would you like to do?</p>
 		{{> joinGroup}}
@@ -147,6 +156,19 @@
 	{{#if inGroup}}
 	  <button class="leave">Leave group</button>
 	{{/if}}
+</template>
+
+<template name="groupAdmin">
+	<h1>A D M I N !</h1>
+	<select class="members">
+		{{#each writer}}
+		<!-- Return list of users with * next to the names of all other group admins -->
+		<option value="{{username}}" name="name">{{username}}{{#if groupAdmin}}*{{/if}}</option>
+		{{/each}}
+	</select>
+	<br />
+	<button class="makeAdmin">Grant Admin Rights</button>
+	<button class="kick">Kick User</button>
 </template>
 
 <template name="leaderboard">
