@@ -56,7 +56,7 @@ Meteor.methods({
 			var id = Groups.findOne({groupId: group}, {fields: {_id: 1}})._id;
 			Meteor.users.update(Meteor.userId(), {$set: {groupId: id}});
 			if (admin)
-				Meteor.users.update(Meteor.userId(), {$set: {groupAdmin: admin}});
+				Meteor.call("makeAdmin", Meteor.userId(), admin);
 		}
 	},
 

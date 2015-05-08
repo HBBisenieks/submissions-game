@@ -3,8 +3,8 @@
 </head>
 
 <body>
-	<!-- Put if block around this to only show the user area when there's a user logged in
-	     otherwise, the login area appears in the main wrapper div -->
+	<!-- Display login at top-left if user is logged in
+       	     otherwise, login will be displayed front and center. -->
 	{{#if currentUser}}
 	<div class="logout">
 		{{> loginButtons}}
@@ -15,10 +15,11 @@
 			<div calss="header-center">
 				<h1>Sink or Submit!</h1>
 			</div>
-		</div>
+		</div> <!-- end header div -->
 		<div class="clear"><br /></div>
 
 		{{#if currentUser}}
+		<!-- If a user is logged in, display user info and leaderboard -->
 		<div class="user">
 			<div class="userdata">
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
@@ -30,6 +31,7 @@
 
 				{{> statUpdate}}
 				{{> userStats}}
+				<!-- Stat bar currently doesn't look pretty, so it's out for the moment -->
 				<!--{{> statBar}}-->
 				<br />
 				{{> leaveGroup}}
@@ -38,12 +40,12 @@
 				{{> groupAdmin}}
 				{{/if}}
 			</div>
-		</div>
+		</div><!-- end user div -->
 		<div class="leaderboard">
 				{{> leaderboard}}
-		</div>
+		</div><!-- end leaderboard div -->
 		{{else}}
-		<!-- Next up: put a login area here when a user isn't logged in -->
+		<!-- Login area appears here if no user is logged in -->
 		<div class=login>
 			<h1>You must be logged in to use this feature</h1>
 			{{> loginButtons}}
@@ -61,8 +63,8 @@
 			<p>
 				Sink or Submit is released under an MIT license. The source code is available on <a href="https://github.com/hbbisenieks/submissions-game/" target="_blank">GitHub</a>. Fork it!
 			</p>
-		</div>
-	</div>
+		</div><!-- end notice div -->
+	</div><!-- end wrapper div -->
 </body>
 
 <template name="userGroup">
