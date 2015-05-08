@@ -24,16 +24,17 @@
 			<div class="userdata">
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
 				{{> userGroup}}
-				<!-- Get a different trophy picture? -->
-				{{> trophy}}
 
 				<br />
 
 				{{> statUpdate}}
+				<div class="clear"></div>
 				{{> userStats}}
+				<!-- Get a different trophy picture? -->
+				{{> trophy}}
 				<!-- Stat bar currently doesn't look pretty, so it's out for the moment -->
 				<!--{{> statBar}}-->
-				<br />
+				<div class="clear"><br /></div>
 				{{> leaveGroup}}
 				<br />
 				{{#if isAdmin}}
@@ -49,6 +50,7 @@
 		<div class=login>
 			<h1>You must be logged in to use this feature</h1>
 			{{> loginButtons}}
+			<br /><br />
 		</div>
 		{{/if}}
 
@@ -123,19 +125,23 @@
 	<button class="accPlus">A +</button>
 	<button class="wdPlus">W +</button>
 	<br />
-	<button class="subMinus">&nbsp;S -</button>
-	<button class="rejMinus">&nbsp;R -</button>
-	<button class="accMinus">&nbsp;A -</button>
-	<button class="wdMinus">&nbsp;W -</button>
+	<button class="subMinus">S -</button>
+	<button class="rejMinus">R -</button>
+	<button class="accMinus">A -</button>
+	<button class="wdMinus">W -</button>
 </template>
 
 <template name="trophy">
+	<div class="trophy">
 	{{#if leading}}
-		<img src='trophy.png' alt='Current Leader!' height='40%' width='40%' />
+	  <br />
+	  <img src='trophy.png' alt='Current Leader!' height='100%' width='100%' />
 	{{/if}}
+	</div>
 </template>
 
 <template name="userStats">
+	<div class="stats">
 	<p>Stats</p>
 	<ul>
 		<li>Submissions: {{userSubs}}</li>
@@ -144,6 +150,7 @@
 		<li>Withdrawals: {{userWithdraw}}</li>
 	</ul>
 	<p>Score: {{userScore}}</p>
+	</div>
 </template>
 
 <template name="statBar">
@@ -172,6 +179,26 @@
 	<br />
 	<button class="makeAdmin">Grant Admin Rights</button>
 	<button class="kick">Kick User</button>
+	{{> changeName}}
+	{{> changeSecret}}
+</template>
+
+<template name="changeName">
+	<h4>Change Group Name</h4>
+	<form class="groupName">
+		<input type="text" name="name" placeholder="New Group Name" required /><br />
+		<input type="submit" value="Change Name" />
+	</form>
+</template>
+
+<template name="changeSecret">
+	<h4>Change Group Secret</h4>
+	<form class="groupSecret">
+		<input type="password" name="old" placeholder="Old group secret" required /><br />
+		<input type="password" name="new" placeholder="New group secret" required /><br />
+		<input type="password" name="confirm" placeholder="Re-enter new secret" required /><br />
+		<input type="submit" value="Change Secret" />
+	</form>
 </template>
 
 <template name="leaderboard">

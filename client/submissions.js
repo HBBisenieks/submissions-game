@@ -56,6 +56,27 @@ Template.groupAdmin.events({
 	}
 });
 
+Template.changeName.events({
+	'submit .groupName': function (event) {
+		var name = event.target.name.value;
+		Meteor.call("changeGroupName", name);
+	}
+});
+
+Template.changeSecret.events({
+	'submit .groupSecret': function (event) {
+		var oldSecret = event.target.old.value;
+		var encOld = CryptoJS.MD5(oldSecret).toString();
+		var newSecret = event.target.new.value;
+		var confSecret = event.target.confirm.value;
+
+		if (newSecret === confSecret) {
+			var encNew = CryptoJS.MD5(newSecret).toString();
+			Meteor.call("changeGroupSecret", encOld, encNew);
+		}
+	}
+});
+
 Template.userGroup.helpers({
 	inGroup: function () {
 		// Return true if user is in a group

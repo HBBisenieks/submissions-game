@@ -60,6 +60,15 @@ Meteor.methods({
 		}
 	},
 
+	changeGroupName: function (name) {
+		Groups.update(Meteor.user().groupId, {$set: {groupDescription: name}});
+	},
+
+	changeGroupSecret: function (oldSecret, newSecret) {
+		if (Groups.findOne(Meteor.user().groupId).secret === oldSecret)
+			Groups.update(Meteor.user().groupId, {$set: {secret: newSecret}});
+	},
+
 	makeAdmin: function (id, admin) {
 		// Below comment no longer true, but I'm keeping it there so that this stupid function will
 		// remember what it's done.

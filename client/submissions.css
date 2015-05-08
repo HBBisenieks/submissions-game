@@ -51,6 +51,7 @@ body
 	margin-left:auto;
 	margin-right:auto;
 	color:#333;
+	text-align:center;
 }
 .logout
 {
@@ -71,6 +72,37 @@ body
 .userdata
 {
 	padding:10px;
+}
+.stats
+{
+	float:left;
+}
+.trophy
+{
+	float:right;
+	width:125px;
+	padding:10px;
+}
+.trophy img
+{
+	float:right;
+}
+.user button
+{
+	width:75px;
+	height:25px;
+	font-weight:bold;
+	font-size:10pt;
+}
+.user button.leave,button.kick,button.makeAdmin
+{
+	width:auto;
+}
+.user input.groupName
+{
+	height:25px;
+	font-weight:bold;
+	font-size:10pt;
 }
 /* Group stuff style starts here */
 .groupleft
