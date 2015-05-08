@@ -73,6 +73,10 @@ body
 {
 	padding:10px;
 }
+.statUpdate
+{
+	text-align:center;
+}
 .stats
 {
 	float:left;
