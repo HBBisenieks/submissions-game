@@ -26,7 +26,18 @@ Template.leaderboard.helpers({
 	}
 });
 
+Template.showAdmin.events({
+	'click .toggle-admin': function (event) {
+		Session.set("showAdmin", event.target.checked);
+	}
+});
+
+
 Template.groupAdmin.helpers({
+	show: function (){
+		return (Session.get("showAdmin"));
+	},
+
 	writer: function () {
 		// Return list of users, excluding current user, for dropdown menu
 		return Meteor.users.find({groupId: Meteor.user().groupId, username: {$ne: Meteor.user().username}}, {fields: {username: 1, groupAdmin: 1}, sort: {username: 1}});

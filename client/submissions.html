@@ -24,6 +24,10 @@
 			<div class="userdata">
 				<h1>{{currentUser.username}} ({{userScore}})</h1>
 				{{> userGroup}}
+				
+				{{#if isAdmin}}
+				{{> showAdmin}}
+				{{/if}}
 
 				<br />
 
@@ -76,6 +80,12 @@
 		<p>You aren't in a group yet. What would you like to do?</p>
 		{{> joinGroup}}
 	{{/if}}
+</template>
+
+<template name="showAdmin">
+	<input type="checkbox" class="toggle-admin" />
+	Show admin controls
+	<br />
 </template>
 
 <template name="joinGroup">
@@ -168,6 +178,7 @@
 </template>
 
 <template name="groupAdmin">
+	{{#if show}}
 	<h1>A D M I N !</h1>
 	<select class="members">
 		<option>--</option>
@@ -181,6 +192,7 @@
 	<button class="kick">Kick User</button>
 	{{> changeName}}
 	{{> changeSecret}}
+	{{/if}}
 </template>
 
 <template name="changeName">
