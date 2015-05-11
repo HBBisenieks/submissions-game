@@ -2,7 +2,7 @@ Groups = new Mongo.Collection("groups");
 
 Meteor.startup(function () {
 	Meteor.publish('userScores', function () {
-		return Meteor.users.find({}, {profile: {subs: 1, rejs: 1, accs: 1, wds: 1, score: 1, groupId: 1}});
+		return Meteor.users.find({}, {profile: {displayName: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1, groupId: 1}});
 	});
 
 /*	Meteor.publish('groups', function () {
@@ -11,6 +11,7 @@ Meteor.startup(function () {
 });
 
 Accounts.onCreateUser(function(options, user) {
+	user.displayName = user.username;
 	user.subs = 0;
 	user.rejs = 0;
 	user.accs = 0;
@@ -29,6 +30,7 @@ Accounts.onCreateUser(function(options, user) {
 Meteor.publish('userData', function() {
 	if (!this.userId) return null;
 	return Meteor.users.find(this.userId, {fields: {
+		displayName: 1,
 		subs: 1,
 		rejs: 1,
 		accs: 1,
@@ -48,6 +50,9 @@ Meteor.publish("groups", function () {
 });
 
 Meteor.methods({
+	setDisplayName: function (name) {
+		Meteor.users.update(Meteor.userId(), {$set: {displayName: name}});
+	},
 
 	joinGroup: function (group, admin, secret) {
 		// confirms that secret provided matches with group secret

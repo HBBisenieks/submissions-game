@@ -22,7 +22,7 @@
 		<!-- If a user is logged in, display user info and leaderboard -->
 		<div class="user">
 			<div class="userdata">
-				<h1>{{currentUser.username}} ({{userScore}})</h1>
+				<h1>{{currentUser.displayName}} ({{userScore}})</h1>
 				{{> userGroup}}
 				
 				{{#if isAdmin}}
@@ -40,8 +40,9 @@
 				<!--{{> statBar}}-->
 				<div class="clear"><br /></div>
 				{{> leaveGroup}}
-				<br />
+				{{> changeDisplayName}}
 				{{#if isAdmin}}
+				<br />
 				{{> groupAdmin}}
 				{{/if}}
 			</div>
@@ -86,6 +87,16 @@
 	<input type="checkbox" class="toggle-admin" />
 	Show admin controls
 	<br />
+</template>
+
+<template name="changeDisplayName">
+	<br />
+	<input type="checkbox" class="toggle-change" /> Change display name <br />
+	{{#if change}}
+	<form class="newName">
+		<input type="text" name="name" placeholder="Display name" required /> <br />
+	</form>
+	{{/if}}
 </template>
 
 <template name="joinGroup">
@@ -134,8 +145,7 @@
 		<button class="subPlus">S +</button>
 		<button class="rejPlus">R +</button>
 		<button class="accPlus">A +</button>
-		<button class="wdPlus">W +</button>
-		<br />
+		<button class="wdPlus">W +</button><br />
 		<button class="subMinus">S -</button>
 		<button class="rejMinus">R -</button>
 		<button class="accMinus">A -</button>
@@ -230,7 +240,7 @@
 	</div>
 	<div class="name">
 			{{#each writer}}
-			<p>{{username}}</p>
+			<p>{{displayName}}</p>
 			{{/each}}
 	</div>
 </template>

@@ -16,7 +16,7 @@ Template.body.helpers({
 Template.leaderboard.helpers({
 	writer: function () {
 		// return all user's attributes for leaderboard
-		return Meteor.users.find({groupId: Meteor.user().groupId}, {fields: {username: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
+		return Meteor.users.find({groupId: Meteor.user().groupId}, {fields: {username: 1, displayName: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
 	},
 
 	isAdmin: function (writer) {
@@ -29,6 +29,23 @@ Template.leaderboard.helpers({
 Template.showAdmin.events({
 	'click .toggle-admin': function (event) {
 		Session.set("showAdmin", event.target.checked);
+	}
+});
+
+Template.changeDisplayName.helpers({
+	change: function () {
+		return (Session.get("showChange"));
+	}
+});
+
+Template.changeDisplayName.events({
+	'click .toggle-change': function (event) {
+		Session.set("showChange", event.target.checked);
+	},
+
+	'submit .newName': function (event) {
+		var name = event.target.name.value;
+		Meteor.call("setDisplayName", name);
 	}
 });
 

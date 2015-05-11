@@ -20,4 +20,6 @@ If you're undeterred by the above, getting your own instance of submissions-game
 
 After Meteor installation has finished, clone the repo and cd into the resulting directory and then run meteor, and you're done.
 
+# Upgrading
 
+If you're upgrading from code revisions predating release v0.3.5, all current users will have to manually update their display names; at this time, there is no way to automatically run this operation, and none will be implemented, as this is a situation arising from pre-release code.
