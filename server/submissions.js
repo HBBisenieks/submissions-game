@@ -45,6 +45,7 @@ Meteor.publish("groups", function () {
 	return Groups.find({}, {fields: {
 		groupId: 1,
 		groupDescription: 1,
+		members: 1,
 		admins: 1}
 	});
 });
@@ -60,8 +61,22 @@ Meteor.methods({
 			// takes a group's shortname and converts it to group's _id
 			var id = Groups.findOne({groupId: group}, {fields: {_id: 1}})._id;
 			Meteor.users.update(Meteor.userId(), {$set: {groupId: id}});
+			Meteor.call("memberNum", id);
 			if (admin)
 				Meteor.call("makeAdmin", Meteor.userId(), admin);
+		}
+	},
+
+	memberNum: function (gid) {
+		var number = Meteor.users.find({groupId: gid}).fetch().length;
+		console.log("This group now has " + number + " members.");
+		Groups.update(gid, {$set: {members: number}});
+	},
+
+	removeGroup: function (gid) {
+		if (Groups.findOne(gid).members === 0) {
+			console.log("Removing group " + gid);
+			Groups.remove(gid);
 		}
 	},
 
@@ -107,9 +122,11 @@ Meteor.methods({
 
 	leaveGroup: function (id) {
 		// Set user id's group to null and strip admin privileges
+		var gid = Meteor.users.findOne(id).groupId;
 		console.log("User with id " + id + " leaving group");
 		Meteor.call("makeAdmin", id, false);
 		Meteor.users.update(id, {$set: {groupId: null}});
+		Meteor.call("memberNum", gid);
 	},
 	  
 	createGroup: function (groupId, groupDescription, secret) {
