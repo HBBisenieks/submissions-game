@@ -127,7 +127,7 @@ body
 {
 	width:300px;
 	border-radius:10px;
-	background-color:#555;
+	background-color:#fff;
 	height:40px;
 	padding:0px;
 	margin-left:auto;
@@ -141,6 +141,11 @@ body
 	border-bottom-left-radius:10px;
 	border-top-left-radius:10px;
 }
+.nonRej
+{
+	height:40px;
+	float:right;
+}
 .accs
 {
 	background-color:#00ff00;
@@ -153,7 +158,7 @@ body
 {
 	background-color:#555;
 	height:40px;
-	float:right;
+	float:left;
 }
 /* User stat bar style ends here */
 /* User area style ends here

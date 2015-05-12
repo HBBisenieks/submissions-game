@@ -220,10 +220,54 @@ Template.userStats.helpers({
 	}
 });
 
+/// Trying chart.js but so far not working
+
+Template.statBar.rendered = function () {
+	drawChart();
+};
+
+function drawChart() {
+	var responseChart = document.getElementById("responseChart").getContext("2d");
+	var responseData = [
+	{
+		value: Meteor.user().subs,
+		color: "#666666",
+		highlight: "#999999",
+		label: "Submissions"
+	},
+	{
+		value: Meteor.user().rejs,
+		color: "#ff0000",
+		highlight: "#cc0000",
+		label: "Rejections"
+	},
+	{
+		value: Meteor.user().accs,
+		color: "#00ff00",
+		highlight: "#00cc00",
+		label: "Acceptances"
+	},
+	{
+		value: Meteor.user().wds,
+		color: "#0000ff",
+		highlight: "#0000cc",
+		label: "Withdrawals"
+	}
+	];
+
+	var responsePie = new Chart(responseChart).Pie(responseData, {
+		animateScale: true
+	});
+};
+
 Template.statBar.helpers({
 	rejWidth: function () {
 		var total = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
 		return ((Meteor.user().rejs / total) * 100);
+	},
+	nonRejWidth: function () {
+		var percent = accWidth() + wdWidth();
+		return (percent);
 	},
 	accWidth: function () {
 		var total = Meteor.user().rejs + Meteor.user().accs + Meteor.user().wds;
@@ -234,6 +278,8 @@ Template.statBar.helpers({
 		return ((Meteor.user().wds / total) * 100);
 	}
 });
+
+/// statUpdate
 
 Template.statUpdate.events({
 	'click .subPlus': function () {

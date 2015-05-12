@@ -37,8 +37,8 @@
 				<!-- Get a different trophy picture? -->
 				{{> trophy}}
 				<!-- Stat bar currently doesn't look pretty, so it's out for the moment -->
+				<div class="clear"></div>
 				<!--{{> statBar}}-->
-				<div class="clear"><br /></div>
 				{{> leaveGroup}}
 				{{> changeDisplayName}}
 				{{#if isAdmin}}
@@ -177,10 +177,18 @@
 
 <template name="statBar">
 <!-- Not working right now, maybe replace with pie chart? -->
-	<div class="statbar">
+<!-- Yup, still not working. Will be replaced with a pie chart using Chart.js -->
+<!--	<div class="statbar">
 		<div class="rejs" style="width:{{rejWidth}}%"></div>
-		<div class="accs" style="width:{{accWidth}}%"></div>
+		<div class="nonRej" style="width:{{nonRejWidth}}%">
+			<div class="wds" style="width:{{wdWidth}}%"></div>
+			<div class="accs" style="width:{{accWidth}}%"></div>
+		</div>
 	</div>
+	<div class="clear"><br /></div>-->
+
+<!-- Still trying to make a pretty data visualization, but still failing -->
+	<canvas id="responseChart" width="200" height="200"></canvas>
 </template>
 
 <template name="leaveGroup">
