@@ -34,8 +34,16 @@ body
 	vertical-align:middle;
 	display:table-cell;
 	position:relative;
-	color:#777;
+	color:#ddd;
 	font-size:1.7em;
+	text-shadow:1px 1px 0 #333,
+	-3px -3px 0 #333,
+	3px -3px 0 #333,
+	-3px 3px 0 #333,
+	0px 3px 0 #333,
+	3px 0px 0 #333,
+	0px -3px 0 #333,
+	-3px 0px 0 #333;
 }
 .header-center
 {
