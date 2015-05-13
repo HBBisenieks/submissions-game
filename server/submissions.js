@@ -44,6 +44,16 @@ Accounts.onCreateUser(function(options, user) {
 	return user;
 });
 
+Accounts.validateLoginAttempt(function (attempt) {
+	if (attempt.user && attempt.user.email && !attempt.user.emaills[0].verified ) {
+		console.log('email not verified');
+
+		return false;
+	}
+
+	return true;
+});
+
 Meteor.publish('userData', function() {
 	if (!this.userId) return null;
 	return Meteor.users.find(this.userId, {fields: {
@@ -68,10 +78,6 @@ Meteor.publish("groups", function () {
 });
 
 Meteor.methods({
-	/// test function while working out kinks in email verification system
-	verify: function () {
-		Accounts.sendVerificationEmail(Meteor.userId());
-	},
 	setDisplayName: function (name) {
 		Meteor.users.update(Meteor.userId(), {$set: {displayName: name}});
 	},
