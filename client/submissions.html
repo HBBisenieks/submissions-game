@@ -90,13 +90,15 @@
 </template>
 
 <template name="changeDisplayName">
-	<br />
-	<input type="checkbox" class="toggle-change" /> Change display name <br />
-	{{#if change}}
-	<form class="newName">
-		<input type="text" name="name" placeholder="Display name" required /> <br />
-	</form>
-	{{/if}}
+	<div class="changeDN">
+		<br />
+		<input type="checkbox" class="toggle-change" /> Change display name <br />
+		{{#if change}}
+		<form class="newName">
+			<input type="text" name="name" placeholder="Display name" required /> <br />
+		</form>
+		{{/if}}
+	</div>
 </template>
 
 <template name="joinGroup">

@@ -5,6 +5,19 @@ Meteor.startup(function () {
 		return Meteor.users.find({}, {profile: {displayName: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1, groupId: 1}});
 	});
 
+	/// Email Verification nonsense cribbed from gentlenode.com
+	Accounts.emailTemplates.from = 'Sink or Submit <no-reply@meteor.com>';
+
+	Accounts.emailTemplates.siteName = 'Sink or Submit';
+	
+	Accounts.emailTemplates.verifyEmail.subject = function (user) {
+		return 'Confirm Your Email Address';
+	};
+	
+	Accounts.emailTemplates.verifyEmail.text = function (user, url) {
+		return 'Click the following link to verify your email address for Sink or Submit: ' + url;
+	};
+
 /*	Meteor.publish('groups', function () {
 		return Groups.find(Meteor.user().groupId, {fields: {groupId: 1, groupDescription: 1}});
 	});*/
@@ -23,6 +36,10 @@ Accounts.onCreateUser(function(options, user) {
 
 	if (options.profile)
 		user.profile = options.profile;
+
+	Meteor.setTimeout(function () {
+		Accounts.sendVerificationEmail(user._id);
+	}, 2 * 1000);
 
 	return user;
 });
@@ -51,6 +68,10 @@ Meteor.publish("groups", function () {
 });
 
 Meteor.methods({
+	/// test function while working out kinks in email verification system
+	verify: function () {
+		Accounts.sendVerificationEmail(Meteor.userId());
+	},
 	setDisplayName: function (name) {
 		Meteor.users.update(Meteor.userId(), {$set: {displayName: name}});
 	},

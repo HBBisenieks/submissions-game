@@ -116,6 +116,10 @@ body
 	font-weight:bold;
 	font-size:10pt;
 }
+.changeDN
+{
+	font-size:75%;
+}
 /* Group stuff style starts here */
 .groupleft
 {
