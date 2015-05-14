@@ -8,9 +8,9 @@ Right.
 
 So.
 
-At the moment, the Submissions Game is meant to be deployed on a per-group basis.  Probably I'll add in more functionality later?  I don't know.  Right now, I'm just focussed on getting the core functionality for a single writing group working.
+At the moment, Sink or Submit is meant to be deployed on a per-group basis.  Probably I'll add in more functionality later?  I don't know.  Right now, I'm just focussed on getting the core functionality for a single writing group working.
 
-The Submissions Game is built off of Meteor.
+Sink or Submit is built off of Meteor.
 
 # Installation
 
