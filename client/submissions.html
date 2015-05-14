@@ -80,7 +80,7 @@
 		<h4>{{groupName.groupDescription}}</h4>
 	{{else}}
 		<p>You aren't in a group yet. What would you like to do?</p>
-		{{> joinGroup}}
+		{{> groupAction}}
 	{{/if}}
 </template>
 
@@ -102,13 +102,24 @@
 	</div>
 </template>
 
-<template name="joinGroup">
+<template name="groupAction">
 	<form>
 		<input type="radio" name="group-select" value="join">Join an Existing Group<br />
 		<input type="radio" name="group-select" value="create">Create a New Group
 	</form>
 	<div class="clear"><br /></div>
 	{{#if join}}
+	  {{> joinGroup}}
+	{{else}}
+	  {{#if create}}
+	    {{> newGroup}}
+	  {{else}}
+	  {{/if}}
+	{{/if}}
+	<div class="clear"></div>
+</template>
+
+<template name="joinGroup">
 	  <div class="groupleft">
 		  Group ID:<br />
 		  Group Secret:
@@ -120,27 +131,24 @@
 			<input type="submit" value="Join Group" />
 		  </form>
 	  </div>
-	{{else}}
-	  {{#if create}}
-	    <div class="groupleft">
-		    Group ID:<br />
-		    Group Display Name:<br />
-		    Group Secret:<br />
-		    Re-enter Secret:
-	    </div>
-	    <div class="groupright">
-		    <form class="createGroup">
-			    <input type="text" name="groupName" placeholder="New group id" required /><br />
-			    <input type="text" name="groupDescription" placeholder="New group display-name" required /><br />
-			    <input type="password" name="groupSecret" placeholder="New group secret" required /><br />
-			    <input type="password" name="secretConfirm" placeholder="Re-enter group secret" required /><br />
-			    <input type="submit" value="Create group"/>
-		    </form>
-	    </div>
-	  {{else}}
-	  {{/if}}
-	{{/if}}
-	<div class="clear"></div>
+</template>
+
+<template name="newGroup">
+	<div class="groupleft">
+	 	Group ID:<br />
+		Group Display Name:<br />
+		Group Secret:<br />
+		Re-enter Secret:
+	</div>
+	<div class="groupright">
+		<form class="createGroup">
+			<input type="text" name="groupName" placeholder="New group id" required /><br />
+			<input type="text" name="groupDescription" placeholder="New group display-name" required /><br />
+			<input type="password" name="groupSecret" placeholder="New group secret" required /><br />
+			<input type="password" name="secretConfirm" placeholder="Re-enter group secret" required /><br />
+			<input type="submit" value="Create group"/>
+		</form>
+	</div>
 </template>
 
 <template name="statUpdate">

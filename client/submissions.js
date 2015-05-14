@@ -134,19 +134,23 @@ Template.userGroup.helpers({
 	},
 });
 
-Template.joinGroup.events({
+Template.groupAction.events({
 	'click input[type=radio]': function (event) {
 		var task = $('input[name=group-select]:checked').val();
 		Session.set('action', task);
-	},
+	}
+});
 
+Template.joinGroup.events({
 	'submit .joinGroup': function (event) {
 		var group = event.target.groupName.value;
 		var secret = event.target.groupSecret.value;
 		var enc = CryptoJS.MD5(secret).toString();
 		Meteor.call("joinGroup", group, false, enc);
-	},
+	}
+});
 
+Template.newGroup.events({
 	'submit .createGroup': function (event) {
 		var group = event.target.groupName.value;
 		var desc = event.target.groupDescription.value;
@@ -163,7 +167,7 @@ Template.joinGroup.events({
 	}
 });
 
-Template.joinGroup.helpers({
+Template.groupAction.helpers({
 	join: function () {
 		if (Session.equals('action', "join"))
 			return true;
