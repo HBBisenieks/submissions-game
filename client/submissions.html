@@ -55,6 +55,7 @@
 		<div class=login>
 			<h1>You must be logged in to use this feature</h1>
 			{{> loginButtons}}
+			{{> newUserNotice}}
 			<br /><br />
 		</div>
 		{{/if}}
@@ -254,4 +255,8 @@
 			<p>{{displayName}}</p>
 			{{/each}}
 	</div>
+</template>
+
+<template name="newUserNotice">
+<p>If you are a new user, you will have to verify your email address before you can log in. Look for an email from &lt;sinkorsub@gmail.com&gt;, which may be caught in your spam filter.</p>
 </template>
