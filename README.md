@@ -14,11 +14,11 @@ Sink or Submit is built off of Meteor.
 
 # Installation
 
-Sink or Submit is now at v1.0. The public implementation is available [here]("http://sinkorsub.meteor.com/"). If you would like to deploy the latest release or the most recent commits for personal use or for development and testing, either head to the [releases]("https://github.com/HBBisenieks/submissions-game/releases") page or clone the most recent code using
+Sink or Submit is now at v1.0. The public implementation is available at <http://sinkorsub.meteor.com/>. If you would like to deploy the latest release or the most recent commits for personal use or for development and testing, either head to the releases page or clone the most recent code using
 
     git clone https://github.com/hbbisenieks/submissions-game
 
-You will also need to enter your own smtp settings if you're going to use or test the email verification features. A good walkthrough for configuring email can be found at [Gentlenode]("https://gentlenode.com/journal/meteor-20-verify-an-email-with-meteor-accounts/42").
+You will also need to enter your own smtp settings if you're going to use or test the email verification features. A good walkthrough for configuring email can be found at Gentlenode (https://gentlenode.com/journal/meteor-20-verify-an-email-with-meteor-accounts/42).
 
 # Upgrading
 
