@@ -33,6 +33,7 @@ Accounts.onCreateUser(function(options, user) {
 	user.prevScore = 0;
 	user.groupId = null;
   	user.groupAdmin = false;
+	user.groups = [];
 
 	if (options.profile)
 		user.profile = options.profile;
@@ -64,7 +65,8 @@ Meteor.publish('userData', function() {
 		wds: 1,
 		score: 1,
 	  	groupId: 1,
-	  	groupAdmin: 1}
+	  	groupAdmin: 1,
+		groups: 1}
 	});
 });
 
@@ -80,6 +82,17 @@ Meteor.publish("groups", function () {
 Meteor.methods({
 	setDisplayName: function (name) {
 		Meteor.users.update(Meteor.userId(), {$set: {displayName: name}});
+	},
+
+	groupStrap: function () {
+		// bootstrap users who don't have the groups[] attribute in their user profile yet
+		if (!Meteor.user().groups) {
+			Meteor.users.update(Meteor.userId(), {$push: { groups: {
+				gid: Meteor.user().groupId,
+				description: Groups.findOne(Meteor.user().groupId).groupDescription,
+				adminOfGroup: Meteor.user().groupAdmin}}
+			});
+		}
 	},
 
 	joinGroup: function (group, admin, secret) {

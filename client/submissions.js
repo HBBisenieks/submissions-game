@@ -98,6 +98,18 @@ Template.groupAdmin.events({
 	}
 });
 
+Template.groupSelect.helpers({
+	group: function () {
+		return Meteor.user().groups;
+	}
+});
+
+Template.groupSelect.events({
+	'change .groups': function (event, template) {
+		console.log(template.find('.groups').value);
+	}
+});
+
 Template.changeName.events({
 	'submit .groupName': function (event) {
 		var name = event.target.name.value;

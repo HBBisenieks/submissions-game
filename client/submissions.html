@@ -268,3 +268,12 @@
 <template name="newUserNotice">
 <p>If you are a new user, you will have to verify your email address before you can log in. Look for an email from &lt;sinkorsub@gmail.com&gt;, which may be caught in your spam filter.</p>
 </template>
+
+<template name="groupSelect">
+	<select class="groups">
+		<option>--</option>
+		{{#each group}}
+		<option value="{{gid}}" name="groupName">{{description}}{{#if adminOfGroup}}*{{/if}}</option>
+		{{/each}}
+	</select>
+</template>
