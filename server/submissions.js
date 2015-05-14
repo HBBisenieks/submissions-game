@@ -45,7 +45,7 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 Accounts.validateLoginAttempt(function (attempt) {
-	if (attempt.user && attempt.user.email && !attempt.user.emaills[0].verified ) {
+	if (attempt.user && attempt.user.emails && !attempt.user.emails[0].verified ) {
 		console.log('email not verified');
 
 		return false;
