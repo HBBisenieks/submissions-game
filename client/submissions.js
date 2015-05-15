@@ -106,7 +106,9 @@ Template.groupSelect.helpers({
 
 Template.groupSelect.events({
 	'change .groups': function (event, template) {
-		console.log(template.find('.groups').value);
+		var gid = template.find('.groups').value;
+		console.log(gid);
+		Meteor.call("switchGroup", gid);
 	}
 });
 

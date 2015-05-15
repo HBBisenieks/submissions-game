@@ -101,10 +101,23 @@ Meteor.methods({
 			// takes a group's shortname and converts it to group's _id
 			var id = Groups.findOne({groupId: group}, {fields: {_id: 1}})._id;
 			Meteor.users.update(Meteor.userId(), {$set: {groupId: id}});
+			Meteor.users.update(Meteor.userId(), {$push: { groups: {
+				gid: id,
+				description: Groups.findOne(id).groupDescription,
+				adminOfGroup: admin}}
+			});
 			Meteor.call("memberNum", id);
 			if (admin)
 				Meteor.call("makeAdmin", Meteor.userId(), admin);
 		}
+	},
+
+	switchGroup: function (gid) {
+		// Switch which group 
+		var group = Meteor.user().groups.filter(function (obj) {
+			return obj.gid === gid
+		});
+		Meteor.users.update(Meteor.userId(), {$set: {groupId: group[0].gid, groupAdmin: group[0].adminOfGroup}});
 	},
 
 	memberNum: function (gid) {
