@@ -24,29 +24,19 @@
 			<div class="userdata">
 				<h1>{{currentUser.displayName}} ({{userScore}})</h1>
 				{{> userGroup}}
+				{{> groupSelect}}
 				
-				{{#if isAdmin}}
-				{{> showAdmin}}
-				{{/if}}
-
-				<br />
-
-				{{> statUpdate}}
-				<div class="clear"></div>
+				<div class="clear"><br /></div>
 				{{> userStats}}
 				<!-- Get a different trophy picture? -->
 				{{> trophy}}
 				<!-- Stat bar currently doesn't look pretty, so it's out for the moment -->
-				<div class="clear"></div>
+				<div class="clear"><br /></div>
 				<!--{{> statBar}}-->
-				{{> leaveGroup}}
-				{{> changeDisplayName}}
-				{{#if isAdmin}}
+				{{> statUpdate}}
 				<br />
-				{{> groupAdmin}}
-				{{/if}}
-				{{> groupAction}}
-				{{> groupSelect}}
+
+				{{> controls}}
 			</div>
 		</div><!-- end user div -->
 		<div class="leaderboard">
@@ -86,6 +76,20 @@
 	{{/if}}
 </template>
 
+<template name="controls">
+	{{> changeDisplayName}}
+	{{> groupAction}}
+	{{> leaveGroup}}
+
+	{{#if isAdmin}}
+	  <div class="adminControls">
+		  <br />
+		  {{> showAdmin}}
+		  {{> groupAdmin}}
+	  </div>
+	{{/if}}
+</template>
+
 <template name="showAdmin">
 	<input type="checkbox" class="toggle-admin" />
 	Show admin controls
@@ -101,6 +105,7 @@
 			<input type="text" name="name" placeholder="Display name" required /> <br />
 		</form>
 		{{/if}}
+		<br />
 	</div>
 </template>
 
@@ -177,14 +182,14 @@
 
 <template name="userStats">
 	<div class="stats">
-	<p>Stats</p>
-	<ul>
-		<li>Submissions: {{userSubs}}</li>
-		<li>Rejections: {{userRejections}}</li>
-		<li>Acceptances: {{userAccept}}</li>
-		<li>Withdrawals: {{userWithdraw}}</li>
-	</ul>
-	<p>Score: {{userScore}}</p>
+		<p>Stats</p>
+		<ul>
+			<li>Submissions: {{userSubs}}</li>
+			<li>Rejections: {{userRejections}}</li>
+			<li>Acceptances: {{userAccept}}</li>
+			<li>Withdrawals: {{userWithdraw}}</li>
+		</ul>
+		<!--	<p>Score: {{userScore}}</p> -->
 	</div>
 </template>
 
@@ -272,10 +277,12 @@
 </template>
 
 <template name="groupSelect">
-	<select class="groups">
-		<option>--</option>
-		{{#each group}}
-		<option value="{{gid}}" name="groupName">{{description}}{{#if adminOfGroup}}*{{/if}}</option>
-		{{/each}}
-	</select>
+	<div class="groupSelect">
+		<select class="groups">
+			<option>-- Select Group --</option>
+			{{#each group}}
+			<option value="{{gid}}" name="groupName">{{description}}{{#if adminOfGroup}}*{{/if}}</option>
+			{{/each}}
+		</select>
+	</div>
 </template>

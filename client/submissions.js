@@ -20,8 +20,10 @@ Template.body.helpers({
 	userScore: function () {
 		// return user's score
 		return Meteor.user().score;
-	},
+	}
+});
 
+Template.controls.helpers({
 	isAdmin: function () {
 		return Meteor.user().groupAdmin;
 	}
@@ -108,7 +110,6 @@ Template.groupSelect.helpers({
 Template.groupSelect.events({
 	'change .groups': function (event, template) {
 		var gid = template.find('.groups').value;
-		console.log(gid);
 		Meteor.call("switchGroup", gid);
 	}
 });
