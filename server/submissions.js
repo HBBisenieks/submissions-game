@@ -107,8 +107,7 @@ Meteor.methods({
 				adminOfGroup: admin}}
 			});
 			Meteor.call("memberNum", id);
-			if (admin)
-				Meteor.call("makeAdmin", Meteor.userId(), admin);
+			Meteor.call("makeAdmin", Meteor.userId(), admin);
 		}
 	},
 
@@ -153,6 +152,7 @@ Meteor.methods({
 		if (admin) {
 			console.log("Adding admin");
 			Meteor.users.update(id, {$set: {groupAdmin: admin}});
+			Meteor.users.update({"_id": id, "groups.gid": gid}, {$set: {"groups.$.adminOfGroup": admin}});
 			var num = Meteor.users.find({groupId: gid, groupAdmin: true}).fetch().length;
 			console.log("Number of admins in group: " + num);
 			Groups.update(gid, {$set: {admins: num}});
@@ -160,6 +160,7 @@ Meteor.methods({
 		} else {
 			console.log("Setting admin status to " + admin);
 			Meteor.users.update(id, {$set: {groupAdmin: admin}});
+			Meteor.users.update({"_id": id, "groups.gid": gid}, {$set: {"groups.$.adminOfGroup": admin}});
 			console.log("Calculating number of admins...");
 			var num = Meteor.users.find({groupId: gid, groupAdmin: true}).fetch().length;
 			console.log("Number of admins in group, according to users.find.length method: " + num);
