@@ -30,7 +30,7 @@ Template.body.helpers({
 Template.leaderboard.helpers({
 	writer: function () {
 		// return all user's attributes for leaderboard
-		return Meteor.users.find({groupId: Meteor.user().groupId}, {fields: {username: 1, displayName: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
+		return Meteor.users.find({groups: {$elemMatch: {gid:Meteor.user().groupId}}}, {fields: {username: 1, displayName: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
 	},
 
 	isAdmin: function (writer) {
@@ -71,7 +71,7 @@ Template.groupAdmin.helpers({
 
 	writer: function () {
 		// Return list of users, excluding current user, for dropdown menu
-		return Meteor.users.find({groupId: Meteor.user().groupId, username: {$ne: Meteor.user().username}}, {fields: {username: 1, groupAdmin: 1}, sort: {username: 1}});
+		return Meteor.users.find({groups: {$elemMatch: {gid:Meteor.user().groupId}}, username: {$ne: Meteor.user().username}}, {fields: {username: 1, groupAdmin: 1}, sort: {username: 1}});
 	}
 });
 
@@ -100,6 +100,7 @@ Template.groupAdmin.events({
 
 Template.groupSelect.helpers({
 	group: function () {
+		Meteor.call("groupStrap"); // Call to bootstrap users created before multi-group feature added
 		return Meteor.user().groups;
 	}
 });
@@ -231,7 +232,7 @@ Template.trophy.helpers({
 		// 
 		// Will display trophy to multiple users who share high score
 		// even though leaderboard will still rank one above others
-		if (Meteor.userId() === Meteor.users.findOne({groupId: Meteor.user().groupId}, {fields: {_id: 1}, sort: {score: -1}})._id) {
+		if (Meteor.userId() === Meteor.users.findOne({groups: {$elemMatch: {gid: Meteor.user().groupId}}}, {fields: {_id: 1}, sort: {score: -1}})._id) {
 			return true;
 		}
 		return false;
