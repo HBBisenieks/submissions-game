@@ -179,7 +179,12 @@ Meteor.methods({
 		var gid = Meteor.users.findOne(id).groupId;
 		console.log("User with id " + id + " leaving group");
 		Meteor.call("makeAdmin", id, false);
-		Meteor.users.update(id, {$set: {groupId: null}});
+		if (Meteor.users.findOne(id).groups.length < 2) {
+			Meteor.users.update(id, {$set: {groupId: null}});
+		} else {
+			Meteor.users.update(id, {$set: {groupId: Meteor.users.findOne(id).groups[0].gid, groupAdmin: Meteor.users.findOne(id).groups[0].adminOfGroup}});
+		}
+		Meteor.users.update(id, {$pull: {groups: {gid: gid}}}, {multi: true});
 		Meteor.call("memberNum", gid);
 	},
 	  
