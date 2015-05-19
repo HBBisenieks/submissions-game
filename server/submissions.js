@@ -111,23 +111,23 @@ Meteor.methods({
 		}
 	},
 
-	switchGroup: function (gid) {
-		// Switch which group 
-		var group = Meteor.user().groups.filter(function (obj) {
+	switchGroup: function (id, gid) {
+		// Switch which group the user is actively viewing
+		var group = Meteor.users.findOne(id).groups.filter(function (obj) {
 			return obj.gid === gid
 		});
-		Meteor.users.update(Meteor.userId(), {$set: {groupId: group[0].gid, groupAdmin: group[0].adminOfGroup}});
+		Meteor.users.update(id, {$set: {groupId: group[0].gid, groupAdmin: group[0].adminOfGroup}});
 	},
 
 	memberNum: function (gid) {
 		var number = Meteor.users.find({groupId: gid}).fetch().length;
-		console.log("This group now has " + number + " members.");
+//		console.log("This group now has " + number + " members.");
 		Groups.update(gid, {$set: {members: number}});
 	},
 
 	removeGroup: function (gid) {
 		if (Groups.findOne(gid).members === 0) {
-			console.log("Removing group " + gid);
+//			console.log("Removing group " + gid);
 			Groups.remove(gid);
 		}
 	},
@@ -148,26 +148,26 @@ Meteor.methods({
 		// THIS PIECE OF SHIT STILL WON'T GIVE ACCURATE NUMBERS ON GROUP ADMINS ON THE FIRST TRY
 		// AND I HATE ITS GUTS
 		var gid = Meteor.users.findOne(id).groupId;
-		console.log("Group id: " + gid);
+//		console.log("Group id: " + gid);
 		if (admin) {
-			console.log("Adding admin");
+//			console.log("Adding admin");
 			Meteor.users.update(id, {$set: {groupAdmin: admin}});
 			Meteor.users.update({"_id": id, "groups.gid": gid}, {$set: {"groups.$.adminOfGroup": admin}});
 			var num = Meteor.users.find({groupId: gid, groupAdmin: true}).fetch().length;
-			console.log("Number of admins in group: " + num);
+//			console.log("Number of admins in group: " + num);
 			Groups.update(gid, {$set: {admins: num}});
-			console.log("Group.find.admins: " + Groups.findOne(Meteor.users.findOne(id).groupId).admins);
+//			console.log("Group.find.admins: " + Groups.findOne(Meteor.users.findOne(id).groupId).admins);
 		} else {
-			console.log("Setting admin status to " + admin);
+//			console.log("Setting admin status to " + admin);
 			Meteor.users.update(id, {$set: {groupAdmin: admin}});
 			Meteor.users.update({"_id": id, "groups.gid": gid}, {$set: {"groups.$.adminOfGroup": admin}});
-			console.log("Calculating number of admins...");
+//			console.log("Calculating number of admins...");
 			var num = Meteor.users.find({groupId: gid, groupAdmin: true}).fetch().length;
-			console.log("Number of admins in group, according to users.find.length method: " + num);
+//			console.log("Number of admins in group, according to users.find.length method: " + num);
 			Groups.update(gid, {$set: {admins: num}});
-			console.log("Group.find.admins: " + Groups.findOne(Meteor.users.findOne(id).groupId).admins);
+//			console.log("Group.find.admins: " + Groups.findOne(Meteor.users.findOne(id).groupId).admins);
 		}
-		console.log("Final number of admins: " + num);
+//		console.log("Final number of admins: " + num);
 	},
 
 	adminNum: function (gid, number) {
@@ -175,14 +175,17 @@ Meteor.methods({
 	},
 
 	leaveGroup: function (id) {
-		// Set user id's group to null and strip admin privileges
+		// If user is in more than one group, set their groupId (id of their active group) to the gid of groups[0]
+		// and switch their active group, otherwise, set groupId to null, then pull group identified by gid from
+		// the user's groups[] array.
 		var gid = Meteor.users.findOne(id).groupId;
-		console.log("User with id " + id + " leaving group");
+//		console.log("User with id " + id + " leaving group");
 		Meteor.call("makeAdmin", id, false);
 		if (Meteor.users.findOne(id).groups.length < 2) {
 			Meteor.users.update(id, {$set: {groupId: null}});
 		} else {
 			Meteor.users.update(id, {$set: {groupId: Meteor.users.findOne(id).groups[0].gid, groupAdmin: Meteor.users.findOne(id).groups[0].adminOfGroup}});
+			Meteor.call("switchGroup", id, gid);
 		}
 		Meteor.users.update(id, {$pull: {groups: {gid: gid}}}, {multi: true});
 		Meteor.call("memberNum", gid);

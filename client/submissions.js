@@ -83,8 +83,8 @@ Template.groupAdmin.events({
 		var name = template.find('.members').value;
 		var id = Meteor.users.findOne({username: name})._id;
 		// log for debugging
-		console.log(name);
-		console.log(id);
+//		console.log(name);
+//		console.log(id);
 		Session.set('manipId', id);
 		Session.set('manipName', name);
 	},
@@ -110,7 +110,7 @@ Template.groupSelect.helpers({
 Template.groupSelect.events({
 	'change .groups': function (event, template) {
 		var gid = template.find('.groups').value;
-		Meteor.call("switchGroup", gid);
+		Meteor.call("switchGroup", Meteor.userId(), gid);
 	}
 });
 
@@ -199,7 +199,7 @@ Template.groupAction.helpers({
 
 Template.leaveGroup.events({
 	'click .leave': function () {
-		console.log(Meteor.user().groupAdmin);
+//		console.log(Meteor.user().groupAdmin);
 		if (Groups.findOne(Meteor.user().groupId).members === 1) {
 			if (confirm("You are the last member of this group. Leaving this group will result in its deletion. Continue?")) {
 				var gid = Meteor.user().groupId;
