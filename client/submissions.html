@@ -3,68 +3,75 @@
 </head>
 
 <body>
+	{{#if currentUser}}
+	<div class="menu">
+		<div class="logout">
+			{{> loginButtons}}
+		</div>
+		<br />
+		{{> controls}}
+	</div>
+
+	<input type="checkbox" id="menu-trigger" class="menu-trigger" />
+	<label for="menu-trigger"></label>
+	{{/if}}
+
 	<!-- Display login at top-left if user is logged in
        	     otherwise, login will be displayed front and center. -->
-	{{#if currentUser}}
-	<div class="logout">
-		{{> loginButtons}}
-	</div>
-	{{/if}}
-	<div class="wrapper">
-		<div class="header">
-			<div calss="header-center">
-				<h1>Sink or Submit!</h1>
+	<div class="site-wrapper">
+		<div class="wrapper">
+			<div class="header">
+				<div calss="header-center">
+					<h1>Sink or Submit!</h1>
+				</div>
+			</div> <!-- end header div -->
+			<div class="clear"><br /></div>
+
+			{{#if currentUser}}
+			<!-- If a user is logged in, display user info and leaderboard -->
+			<div class="user">
+				<div class="userdata">
+					<h1>{{currentUser.displayName}} ({{userScore}})</h1>
+					{{> userGroup}}
+					{{> groupSelect}}
+					
+					<div class="clear"><br /></div>
+					{{> userStats}}
+					<!-- Get a different trophy picture? -->
+					{{> trophy}}
+					<!-- Stat bar currently doesn't look pretty, so it's out for the moment -->
+					<div class="clear"><br /></div>
+					<!--{{> statBar}}-->
+					{{> statUpdate}}
+				</div>
+			</div><!-- end user div -->
+			<div class="leaderboard">
+					{{> leaderboard}}
+			</div><!-- end leaderboard div -->
+			{{else}}
+			<!-- Login area appears here if no user is logged in -->
+			<div class=login>
+				<h1>You must be logged in to use this feature</h1>
+				{{> loginButtons}}
+				{{> newUserNotice}}
+				<br /><br />
 			</div>
-		</div> <!-- end header div -->
-		<div class="clear"><br /></div>
+			{{/if}}
 
-		{{#if currentUser}}
-		<!-- If a user is logged in, display user info and leaderboard -->
-		<div class="user">
-			<div class="userdata">
-				<h1>{{currentUser.displayName}} ({{userScore}})</h1>
-				{{> userGroup}}
-				{{> groupSelect}}
-				
-				<div class="clear"><br /></div>
-				{{> userStats}}
-				<!-- Get a different trophy picture? -->
-				{{> trophy}}
-				<!-- Stat bar currently doesn't look pretty, so it's out for the moment -->
-				<div class="clear"><br /></div>
-				<!--{{> statBar}}-->
-				{{> statUpdate}}
-				<br />
-
-				{{> controls}}
-			</div>
-		</div><!-- end user div -->
-		<div class="leaderboard">
-				{{> leaderboard}}
-		</div><!-- end leaderboard div -->
-		{{else}}
-		<!-- Login area appears here if no user is logged in -->
-		<div class=login>
-			<h1>You must be logged in to use this feature</h1>
-			{{> loginButtons}}
-			{{> newUserNotice}}
-			<br /><br />
-		</div>
-		{{/if}}
-
-		<div class="clear"></div>
-		<div class="notice">
-			<p>
-				Sink or Submit is based on a game invented by <a href="https://twitter.com/rachaelkjones" target="_blank">@rachaelkjones</a> and given minor internet notoriety by 
-				<a href="https://twitter.com/ghostwritingcow" target="_blank">@ghostwritingcow</a>.
-				<br />
-				It was developed by <a href="https://twitter.com/hbbisenieks" target="_blank">@HBBisenieks</a>.
-			</p>
-			<p>
-				Sink or Submit is released under an MIT license. The source code is available on <a href="https://github.com/hbbisenieks/submissions-game/" target="_blank">GitHub</a>. Fork it!
-			</p>
-		</div><!-- end notice div -->
-	</div><!-- end wrapper div -->
+			<div class="clear"></div>
+			<div class="notice">
+				<p>
+					Sink or Submit is based on a game invented by <a href="https://twitter.com/rachaelkjones" target="_blank">@rachaelkjones</a> and given minor internet notoriety by 
+					<a href="https://twitter.com/ghostwritingcow" target="_blank">@ghostwritingcow</a>.
+					<br />
+					It was developed by <a href="https://twitter.com/hbbisenieks" target="_blank">@HBBisenieks</a>.
+				</p>
+				<p>
+					Sink or Submit is released under an MIT license. The source code is available on <a href="https://github.com/hbbisenieks/submissions-game/" target="_blank">GitHub</a>. Fork it!
+				</p>
+			</div><!-- end notice div -->
+		</div><!-- end wrapper div -->
+	</div><!-- end site-wrapper div -->
 </body>
 
 <template name="userGroup">
@@ -127,6 +134,7 @@
 </template>
 
 <template name="joinGroup">
+	<div class="groupActionBox">
 	  <div class="groupleft">
 		  Group ID:<br />
 		  Group Secret:
@@ -138,9 +146,11 @@
 			<input type="submit" value="Join Group" />
 		  </form>
 	  </div>
+	</div>
 </template>
 
 <template name="newGroup">
+<div class="groupActionBox">
 	<div class="groupleft">
 	 	Group ID:<br />
 		Group Display Name:<br />
@@ -155,6 +165,7 @@
 			<input type="password" name="secretConfirm" placeholder="Re-enter group secret" required /><br />
 			<input type="submit" value="Create group"/>
 		</form>
+	</div>
 	</div>
 </template>
 
