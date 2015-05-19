@@ -124,6 +124,18 @@ body
 {
 	text-align:center;
 }
+.toggle-menu
+{
+	position:absolute;
+	clip:rect(0,0,0,0);
+}
+label[for="toggle-menu"]
+{
+	width:30px;
+	height:30px;
+	cursor:pointer;
+	background-color:#ddd;
+}
 /* Group stuff style starts here */
 .groupleft
 {

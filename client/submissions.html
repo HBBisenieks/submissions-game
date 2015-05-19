@@ -77,16 +77,22 @@
 </template>
 
 <template name="controls">
-	{{> changeDisplayName}}
-	{{> groupAction}}
-	{{> leaveGroup}}
+	<br />
+	<input type="checkbox" id="toggle-menu" class="toggle-menu" />
+	<label for="toggle-menu"></label>
+	
+	{{#if show}}
+	  {{> changeDisplayName}}
+	  {{> groupAction}}
+	  {{> leaveGroup}}
 
-	{{#if isAdmin}}
-	  <div class="adminControls">
-		  <br />
-		  {{> showAdmin}}
-		  {{> groupAdmin}}
-	  </div>
+	  {{#if isAdmin}}
+	    <div class="adminControls">
+		    <br />
+		    {{> showAdmin}}
+		    {{> groupAdmin}}
+	    </div>
+	  {{/if}}
 	{{/if}}
 </template>
 

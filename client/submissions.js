@@ -26,6 +26,16 @@ Template.body.helpers({
 Template.controls.helpers({
 	isAdmin: function () {
 		return Meteor.user().groupAdmin;
+	},
+
+	show: function () {
+		return Session.get("showMenu");
+	}
+});
+
+Template.controls.events({
+	'click .toggle-menu': function (event) {
+		Session.set("showMenu",event.target.checked);
 	}
 });
 
