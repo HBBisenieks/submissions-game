@@ -77,9 +77,9 @@
 </template>
 
 <template name="controls">
-	<br />
-	<input type="checkbox" id="toggle-menu" class="toggle-menu" />
-	<label for="toggle-menu"></label>
+	<div class="controls">
+		<label for="toggle-menu"><input type="checkbox" id="toggle-menu" class="toggle-menu" /></label>
+	</div>	
 	
 	{{#if show}}
 	  {{> changeDisplayName}}
