@@ -105,12 +105,13 @@
 <template name="changeDisplayName">
 	<div class="changeDN">
 		<br />
-		<input type="checkbox" class="toggle-change" /> Change display name <br />
-		{{#if change}}
+<!--		<input type="checkbox" class="toggle-change" /> Change display name <br />
+	{{#if change}} -->
+		Change Display Name? <br />
 		<form class="newName">
-			<input type="text" name="name" placeholder="Display name" required /> <br />
+			<input type="text" name="name" placeholder="New display name" required /> <br />
 		</form>
-		{{/if}}
+<!--		{{/if}} -->
 		<br />
 	</div>
 </template>
@@ -217,7 +218,7 @@
 
 <template name="leaveGroup">
 	{{#if inGroup}}
-	  <button class="leave">Leave group</button>
+	  <button class="leave">Leave current group</button>
 	{{/if}}
 </template>
 

@@ -116,9 +116,10 @@ body
 	font-weight:bold;
 	font-size:10pt;
 }
-.changeDN
+.changeDN input
 {
-	font-size:75%;
+/*	font-size:75%;*/
+	width:200px;
 }
 .groupSelect
 {
@@ -126,7 +127,6 @@ body
 }
 .controls
 {
-	height:30px;
 	padding:10px;
 }
 .toggle-menu
