@@ -42,6 +42,10 @@ Template.controls.events({
 Template.leaderboard.helpers({
 	writer: function () {
 		// return all user's attributes for leaderboard
+		// if user is not in any group, return all users not in groups
+		// otherwise, return users in currently selected group
+		if (!Meteor.user().groupId)
+			return Meteor.users.find({groupId: null}, {fields: {displayName: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
 		return Meteor.users.find({groups: {$elemMatch: {gid:Meteor.user().groupId}}}, {fields: {username: 1, displayName: 1, subs: 1, rejs: 1, accs: 1, wds: 1, score: 1}, sort: {score: -1}});
 	},
 
@@ -243,10 +247,17 @@ Template.trophy.helpers({
 		// 
 		// Will display trophy to multiple users who share high score
 		// even though leaderboard will still rank one above others
-		if (Meteor.userId() === Meteor.users.findOne({groups: {$elemMatch: {gid: Meteor.user().groupId}}}, {fields: {_id: 1}, sort: {score: -1}})._id) {
+		if (!Meteor.user().groupId) {
+			if (Meteor.userId() === Meteor.users.findOne({groupId: null}, {fields: {_id: 1}, sort: {score: -1}})._id) {
+				return true;
+			} else {
+				return false;
+			}
+		}else if (Meteor.userId() === Meteor.users.findOne({groups: {$elemMatch: {gid: Meteor.user().groupId}}}, {fields: {_id: 1}, sort: {score: -1}})._id) {
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 });
 

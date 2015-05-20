@@ -24,7 +24,6 @@
 			<div class="userdata">
 				<h1>{{currentUser.displayName}} ({{userScore}})</h1>
 				{{> userGroup}}
-				{{> groupSelect}}
 				
 				<div class="clear"><br /></div>
 				{{> userStats}}
@@ -70,6 +69,7 @@
 <template name="userGroup">
 	{{#if inGroup}}
 		<h4>{{groupName.groupDescription}}</h4>
+		{{> groupSelect}}
 	{{else}}
 		<p>You aren't in a group yet. What would you like to do?</p>
 		{{> groupAction}}
