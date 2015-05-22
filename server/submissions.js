@@ -15,7 +15,7 @@ Meteor.startup(function () {
 	};
 	
 	Accounts.emailTemplates.verifyEmail.text = function (user, url) {
-		return 'Click the following link to verify your email address for Sink or Submit: ' + url;
+		return "Copy and paste the following link into your browser's address bar to verify your email address for Sink or Submit: " + url;
 	};
 
 /*	Meteor.publish('groups', function () {
